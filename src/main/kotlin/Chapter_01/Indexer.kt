@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright Manning Publications Co.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,6 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific lan
  */
+
+/*
+ * This code was originally written for
+ * Erik's Lucene intro java.net article
+ * Ported to Kotlin by sjs 4/16/2021
+ */
+@file:Suppress("DEPRECATION")
 
 package Chapter_01
 
@@ -28,24 +35,6 @@ import java.io.FileFilter
 import java.lang.Exception
 import java.lang.RuntimeException
 
-/**
- * Copyright Manning Publications Co.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific lan
- */ // From chapter 1
-/**
- * This code was originally written for
- * Erik's Lucene intro java.net article
- */
 open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
 
   private val writer: IndexWriter = IndexWriter(
@@ -65,14 +54,14 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
   @Throws(Exception::class)
   fun index(filter: FileFilter?): Int {
     val files = DATA_DIR.listFiles()
-    for (f in files) {
-      if (!f.isDirectory &&
-          !f.isHidden &&
-          f.exists() &&
-          f.canRead() &&
-          (filter == null || filter.accept(f))) {
-        indexFile(f)
-      }
+    files.forEach { f ->
+        if (!f.isDirectory &&
+            !f.isHidden &&
+            f.exists() &&
+            f.canRead() &&
+            (filter == null || filter.accept(f))) {
+          indexFile(f)
+        }
     }
     return writer.numDocs() //5
   }
