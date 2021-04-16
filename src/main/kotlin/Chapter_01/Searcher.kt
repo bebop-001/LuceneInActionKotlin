@@ -56,7 +56,7 @@ object Searcher {
     }
 
     @Throws(IOException::class, ParseException::class)
-    fun search(indexDir: File, q: String) : String {
+    fun search(indexDir: File, queryString: String) : String {
         val dir: Directory = FSDirectory.open(indexDir) //3
         @Suppress("DEPRECATION")
         val indexSearcher = IndexSearcher1(dir) //3
@@ -67,14 +67,14 @@ object Searcher {
                 Version.LUCENE_30
             )
         ) //4
-        val query = parser.parse(q) //4   
+        val query = parser.parse(queryString) //4
         val start = System.currentTimeMillis()
         val hits = indexSearcher.search(query, 10) //5
         val end = System.currentTimeMillis()
         var rv ="Found " + hits.totalHits +  //6
                 " document(s) (in " + (end - start) +  // 6
                 " milliseconds) that matched query '" +  // 6
-                q + "':" // 6
+                queryString + "':" // 6
         for (scoreDoc in hits.scoreDocs) {
             val doc = indexSearcher.doc(scoreDoc.doc) //7
             rv += "\n${doc["fullpath"]}" //8
