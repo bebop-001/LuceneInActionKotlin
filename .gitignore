@@ -1,4 +1,6 @@
 libs/
+out/
+indexerOut/
 *.iml
 *.sw*
 err
