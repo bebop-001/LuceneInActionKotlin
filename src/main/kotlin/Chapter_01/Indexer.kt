@@ -18,8 +18,6 @@
  * Erik's Lucene intro java.net article
  * Ported to Kotlin by sjs 4/16/2021
  */
-@file:Suppress("DEPRECATION")
-
 package Chapter_01
 
 import org.apache.lucene.index.IndexWriter
@@ -37,6 +35,7 @@ import java.lang.RuntimeException
 
 open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
 
+  @Suppress("DEPRECATION")
   private val writer: IndexWriter = IndexWriter(
     FSDirectory.open(INDEX_DIR),  //3
     StandardAnalyzer( //3
@@ -54,7 +53,7 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
   @Throws(Exception::class)
   fun index(filter: FileFilter?): Int {
     val files = DATA_DIR.listFiles()
-    files.forEach { f ->
+    files?.forEach { f ->
         if (!f.isDirectory &&
             !f.isHidden &&
             f.exists() &&
