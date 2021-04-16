@@ -12,82 +12,74 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific lan      
 */
-package Chapter_01;
+package Chapter_01
 
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.document.Document;
-import org.apache.lucene.queryParser.ParseException;
-import org.apache.lucene.queryParser.QueryParser;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
-import org.apache.lucene.store.Directory;
-import org.apache.lucene.store.FSDirectory;
-import org.apache.lucene.util.Version;
+import java.lang.IllegalArgumentException
+import java.io.IOException
+import org.apache.lucene.store.FSDirectory
+import org.apache.lucene.queryParser.QueryParser
+import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.queryParser.ParseException
+import org.apache.lucene.store.Directory
+import org.apache.lucene.util.Version
+import java.io.File
+import java.lang.RuntimeException
+import kotlin.system.exitProcess
+import org.apache.lucene.search.IndexSearcher as IndexSearcher1
 
-import java.io.File;
-import java.io.IOException;
 
 // From chapter 1
-
 /**
  * This code was originally written for
  * Erik's Lucene intro java.net article
  */
-public class Searcher {
-
-  public static void main(String[] args) throws IllegalArgumentException,
-        IOException, ParseException {
-    if (args.length != 2) {
-      throw new IllegalArgumentException("Usage: java " + Searcher.class.getSimpleName()
-        + " <index dir> <query>");
+object Searcher {
+    @Throws(IllegalArgumentException::class, IOException::class, ParseException::class)
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val indexDir = File(System.getenv("PWD") + "/indexerOut")
+        if (!indexDir.exists())
+            throw RuntimeException("$indexDir doesn't exist and mkdir failed")
+        var query = ""
+        while (query != "q") {
+            print("Enter query or \"q\" to quit. > ")
+            query = readLine()!!.trim()
+            if (query == "q") {
+                println("bye...")
+                exitProcess(0)
+            }
+            println(search(indexDir, query))
+            query = ""
+        }
+        val q = args[1] //2
+        search(indexDir, q)
     }
 
-    String indexDir = args[0];               //1 
-    String q = args[1];                      //2   
-
-    search(indexDir, q);
-  }
-
-  public static void search(String indexDir, String q)
-    throws IOException, ParseException {
-
-    Directory dir = FSDirectory.open(new File(indexDir)); //3
-    IndexSearcher is = new IndexSearcher(dir);   //3   
-
-    QueryParser parser = new QueryParser(Version.LUCENE_30, // 4
-                                         "contents",  //4
-                     new StandardAnalyzer(          //4
-                       Version.LUCENE_30));  //4
-    Query query = parser.parse(q);              //4   
-    long start = System.currentTimeMillis();
-    TopDocs hits = is.search(query, 10); //5
-    long end = System.currentTimeMillis();
-
-    System.err.println("Found " + hits.totalHits +   //6  
-      " document(s) (in " + (end - start) +        // 6
-      " milliseconds) that matched query '" +     // 6
-      q + "':");                                   // 6
-
-    for(ScoreDoc scoreDoc : hits.scoreDocs) {
-      Document doc = is.doc(scoreDoc.doc);               //7      
-      System.out.println(doc.get("fullpath"));  //8  
+    @Throws(IOException::class, ParseException::class)
+    fun search(indexDir: File, q: String) : String {
+        val dir: Directory = FSDirectory.open(indexDir) //3
+        @Suppress("DEPRECATION")
+        val indexSearcher = IndexSearcher1(dir) //3
+        val parser = QueryParser(
+            Version.LUCENE_30,  // 4
+            "contents",  //4
+            StandardAnalyzer( //4
+                Version.LUCENE_30
+            )
+        ) //4
+        val query = parser.parse(q) //4   
+        val start = System.currentTimeMillis()
+        val hits = indexSearcher.search(query, 10) //5
+        val end = System.currentTimeMillis()
+        var rv ="Found " + hits.totalHits +  //6
+                " document(s) (in " + (end - start) +  // 6
+                " milliseconds) that matched query '" +  // 6
+                q + "':" // 6
+        for (scoreDoc in hits.scoreDocs) {
+            val doc = indexSearcher.doc(scoreDoc.doc) //7
+            rv += "\n${doc["fullpath"]}" //8
+        }
+        indexSearcher.close() //9
+        return rv
     }
-
-    is.close();                                //9
-  }
 }
-
-/*
-#1 Parse provided index directory
-#2 Parse provided query string
-#3 Open index
-#4 Parse query
-#5 Search index
-#6 Write search stats
-#7 Retrieve matching document
-#8 Display filename
-#9 Close IndexSearcher
-*/
-
