@@ -1,5 +1,3 @@
-package Chapter_01;
-
 /**
  * Copyright Manning Publications Co.
  *
@@ -14,6 +12,8 @@ package Chapter_01;
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific lan      
 */
+
+package Chapter_01
 
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
