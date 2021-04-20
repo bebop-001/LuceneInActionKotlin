@@ -4,10 +4,9 @@ import java.io.IOException
 import org.apache.lucene.store.RAMDirectory
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.analysis.WhitespaceAnalyzer
-import Chapter_02.lia.indexing.VerboseIndexing
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
-import org.apache.lucene.store.Directory
+import org.apache.lucene.index.IndexWriterConfig
 import org.apache.lucene.util.Version
 
 /**
@@ -29,8 +28,8 @@ class VerboseIndexing {
     @Throws(IOException::class)
     private fun index() {
         val writer = IndexWriter(
-            RAMDirectory(), WhitespaceAnalyzer(LUCENE_VERSION),
-            IndexWriter.MaxFieldLength.UNLIMITED
+            RAMDirectory(),
+            IndexWriterConfig(LUCENE_VERSION, WhitespaceAnalyzer(LUCENE_VERSION))
         )
         writer.infoStream = System.out
         for (i in 0..99) {
@@ -38,7 +37,7 @@ class VerboseIndexing {
             doc.add(Field("keyword", "goober", Field.Store.YES, Field.Index.NOT_ANALYZED))
             writer.addDocument(doc)
         }
-        writer.optimize()
+        // writer.optimize()
         writer.close()
     }
 
