@@ -23,7 +23,7 @@ import org.apache.lucene.util.Version
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific lan
  */ // From chapter 2
-val LUCENE_VERSION = Version.LUCENE_30
+val LUCENE_VERSION = Version.LUCENE_36
 class VerboseIndexing {
     @Throws(IOException::class)
     private fun index() {
