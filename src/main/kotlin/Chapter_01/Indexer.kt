@@ -98,12 +98,25 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
     writer.addDocument(doc) //10
   }
 
+
   companion object {
+    val HOME = File(System.getenv("PWD"))
+    fun mkDirsIfNeeded (dirs : String) :File {
+      var toMake = HOME
+      if (File(toMake, dirs).exists())
+        return File(toMake, dirs)
+      dirs.split("/").filter{it.isNotEmpty()}.forEach{dir ->
+        toMake = File(toMake, dir)
+        if (!toMake.exists() && !toMake.mkdir())
+          throw RuntimeException("mkdirs: Failed to create $toMake")
+      }
+      return toMake
+    }
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
       val dataDir = File(System.getenv("PWD") + "/data")
-      val indexDir = File(System.getenv("PWD") + "/indexerOut")
+      val indexDir = mkDirsIfNeeded("${javaClass.packageName}.out/indexerOut")
       if (!indexDir.exists() && !indexDir.mkdir())
         throw RuntimeException("$indexDir doesn't exist and mkdir failed")
 

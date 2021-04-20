@@ -37,7 +37,9 @@ object Searcher {
     @Throws(IllegalArgumentException::class, IOException::class, ParseException::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        val indexDir = File(System.getenv("PWD") + "/indexerOut")
+        val indexDir = File(
+            "${System.getenv("PWD")}/${javaClass.packageName}.out/indexerOut"
+        )
         if (!indexDir.exists())
             throw RuntimeException("$indexDir doesn't exist and mkdir failed")
         var query = ""
@@ -72,9 +74,9 @@ object Searcher {
         val hits = indexSearcher.search(query, 10) //5
         val end = System.currentTimeMillis()
         var rv ="Found " + hits.totalHits +  //6
-                " document(s) (in " + (end - start) +  // 6
-                " milliseconds) that matched query '" +  // 6
-                queryString + "':" // 6
+            " document(s) (in " + (end - start) +  // 6
+            " milliseconds) that matched query '" +  // 6
+            queryString + "':" // 6
         for (scoreDoc in hits.scoreDocs) {
             val doc = indexSearcher.doc(scoreDoc.doc) //7
             rv += "\n${doc["fullpath"]}" //8
