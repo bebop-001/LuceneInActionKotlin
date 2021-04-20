@@ -15,17 +15,17 @@ package Chapter_02.lia.indexing;
  * See the License for the specific lan      
 */
 
-import org.apache.lucene.index.IndexWriter;
+import Chapter_02.lia.common.TestUtil;
+
+import junit.framework.TestCase;
 import org.apache.lucene.analysis.SimpleAnalyzer;
+import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.store.LockObtainFailedException;
 
-import junit.framework.TestCase;
-import java.io.IOException;
 import java.io.File;
-
-import lia.common.TestUtil;
+import java.io.IOException;
 
 // From chapter 2
 public class LockTest extends TestCase {

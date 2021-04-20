@@ -17,7 +17,7 @@ package Chapter_02.lia.indexing;
 
 import junit.framework.TestCase;
 
-import lia.common.TestUtil;
+import Chapter_02.lia.common.TestUtil;
 
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
