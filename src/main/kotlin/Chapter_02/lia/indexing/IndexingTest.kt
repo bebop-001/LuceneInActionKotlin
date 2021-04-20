@@ -2,12 +2,13 @@ package Chapter_02.lia.indexing
 
 import Chapter_02.lia.common.hitCount
 import junit.framework.TestCase
+import org.apache.lucene.analysis.LimitTokenCountAnalyzer
 import org.apache.lucene.analysis.WhitespaceAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.index.IndexWriter
-import org.apache.lucene.index.IndexWriter.MaxFieldLength
+import org.apache.lucene.index.IndexWriterConfig
 import org.apache.lucene.index.Term
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.search.Query
@@ -84,23 +85,28 @@ class IndexingTest : TestCase() {
     private val writer: IndexWriter
         get() =// 2
             IndexWriter(
-                directory, WhitespaceAnalyzer(LUCENE_VERSION),  // 2
-                MaxFieldLength.UNLIMITED
-            ) // 2
+                directory,
+                // use writerconfig instead of directly accessing
+                // the analyzer.
+                IndexWriterConfig(
+                    LUCENE_VERSION, WhitespaceAnalyzer(LUCENE_VERSION)
+                )
+            )  // 2
 
     @Throws(IOException::class)
     private fun getHitCount(fieldName: String?, searchString: String?): Int {
-        val searcher = IndexSearcher(directory) //4
+        // use IndexReader.open instead of passing directly directly.
+        val reader = IndexReader.open(directory)
+        val searcher = IndexSearcher(reader) //4
         val t = Term(fieldName, searchString)
         val query: Query = TermQuery(t) //5
         val hitCount = hitCount(searcher, query) //6
-        searcher.close()
+        reader.close()
         return hitCount
     }
 
     @Throws(IOException::class)
     fun testIndexWriter() {
-        val writer = writer
         assertEquals(ids.size, writer.numDocs()) //7
         writer.close()
     }
@@ -125,7 +131,6 @@ class IndexingTest : TestCase() {
   */
     @Throws(IOException::class)
     fun testDeleteBeforeOptimize() {
-        val writer = writer
         assertEquals(2, writer.numDocs()) //A
         writer.deleteDocuments(Term("id", "1")) //B
         writer.commit()
@@ -137,10 +142,9 @@ class IndexingTest : TestCase() {
 
     @Throws(IOException::class)
     fun testDeleteAfterOptimize() {
-        val writer = writer
         assertEquals(2, writer.numDocs())
         writer.deleteDocuments(Term("id", "1"))
-        writer.optimize() //3
+        // writer.optimize() //3
         writer.commit()
         assertFalse(writer.hasDeletions())
         assertEquals(1, writer.maxDoc()) //C
@@ -159,8 +163,7 @@ class IndexingTest : TestCase() {
     @Throws(IOException::class)
     fun testUpdate() {
         assertEquals(1, getHitCount("city", "Amsterdam"))
-        val writer = writer
-        val doc = Document() //A            
+        val doc = Document() //A
         doc.add(
             Field(
                 "id", "1",
@@ -207,11 +210,13 @@ class IndexingTest : TestCase() {
   */
     @Throws(IOException::class)
     fun testMaxFieldLength() {
-        assertEquals(1, getHitCount("contents", "bridges")) //1
+        assertEquals(1, getHitCount("contents", "bridges"))
         val writer = IndexWriter(
-            directory, WhitespaceAnalyzer(LUCENE_VERSION),  //2
-            MaxFieldLength(1)
-        ) //2
+            directory, IndexWriterConfig(LUCENE_VERSION,
+                // use this for MaxFieldLength deprecation.
+                LimitTokenCountAnalyzer(WhitespaceAnalyzer(LUCENE_VERSION), 1)
+            )
+        )  //2
         val doc = Document() // 3
         doc.add(
             Field(
