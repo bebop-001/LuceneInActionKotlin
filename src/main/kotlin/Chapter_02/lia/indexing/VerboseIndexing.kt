@@ -32,12 +32,11 @@ class VerboseIndexing {
             IndexWriterConfig(LUCENE_VERSION, WhitespaceAnalyzer(LUCENE_VERSION))
         )
         writer.infoStream = System.out
-        for (i in 0..99) {
+        (0..99).forEach {
             val doc = Document()
             doc.add(Field("keyword", "goober", Field.Store.YES, Field.Index.NOT_ANALYZED))
             writer.addDocument(doc)
         }
-        // writer.optimize()
         writer.close()
     }
 
