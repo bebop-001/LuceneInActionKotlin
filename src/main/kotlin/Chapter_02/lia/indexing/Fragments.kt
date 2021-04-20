@@ -10,7 +10,6 @@ import org.apache.lucene.document.NumericField
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
-import org.apache.lucene.util.Version
 import java.io.IOException
 import java.util.*
 
@@ -31,13 +30,13 @@ import java.util.*
 /** Just to test the code compiles.  */
 internal class Fragments {
     private val senderEmail: String
-        private get() = "bob@smith.com"
+        get() = "bob@smith.com"
     private val senderName: String
-        private get() = "Bob Smith"
+        get() = "Bob Smith"
     private val subject: String
-        private get() = "Hi there Lisa"
+        get() = "Hi there Lisa"
     private val body: String
-        private get() = "I don't have much to say"
+        get() = "I don't have much to say"
 
     private fun isImportant(lowerDomain: String): Boolean {
         return lowerDomain.endsWith(senderDomain)
@@ -49,7 +48,7 @@ internal class Fragments {
 
     @Throws(Exception::class)
     fun ramDirExample() {
-        val analyzer: Analyzer = WhitespaceAnalyzer()
+        val analyzer: Analyzer = WhitespaceAnalyzer(LUCENE_VERSION)
         // START
         val ramDir: Directory = RAMDirectory()
         val writer = IndexWriter(
@@ -86,7 +85,9 @@ internal class Fragments {
     @Throws(IOException::class)
     fun docBoostMethod() {
         val dir: Directory = RAMDirectory()
-        val writer = IndexWriter(dir, StandardAnalyzer(Version.LUCENE_30), IndexWriter.MaxFieldLength.UNLIMITED)
+        val writer = IndexWriter(dir,
+            StandardAnalyzer(LUCENE_VERSION),
+            IndexWriter.MaxFieldLength.UNLIMITED)
 
         // START
         val doc = Document()
@@ -255,7 +256,7 @@ internal class Fragments {
         }
 
         private val senderDomain = "example.com"
-            private get() = field
+            get() = field
         const val BAD_DOMAIN = "yucky-domain.com"
     }
 }
