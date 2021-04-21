@@ -81,7 +81,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
         @JvmStatic
         fun main(args: Array<String>) {
             fun mkDir (dir:File) {
-                var dirs = dir.toString().split("/").filter{it.isNotEmpty()}.toMutableList()
+                val dirs = dir.toString().split("/").filter{it.isNotEmpty()}.toMutableList()
                 var toMake = ""
                 while(dirs.size > 0) {
                     toMake = "$toMake/${dirs[0]}"
@@ -95,7 +95,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
             fun rmDirsAndFiles(root:File) {
                 if (root.exists()) {
                     if (root.isDirectory) {
-                        root.list().forEach { file ->
+                        root.list()?.forEach { file ->
                             val f = File(root, file)
                             if (f.isDirectory) rmDirsAndFiles(f)
                             else if(f.isFile) f.delete()
@@ -105,7 +105,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                     }
                 }
             }
-            val indexDir = File(INDEX_HOME, "${javaClass.packageName}")
+            val indexDir = File(INDEX_HOME, javaClass.packageName)
             rmDirsAndFiles(indexDir)
             mkDir(indexDir)
             if (!indexDir.exists() && !indexDir.mkdir())
