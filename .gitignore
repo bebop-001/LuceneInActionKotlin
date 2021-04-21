@@ -1,7 +1,9 @@
 .idea/misc.xml
+.idea/codeStyles/
+.idea/uiDesigner.xml
 libs/
 out/
-indexerOut/
+indexes/
 *.iml
 *.sw*
 err
