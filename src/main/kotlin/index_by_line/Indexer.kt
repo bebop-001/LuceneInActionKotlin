@@ -97,9 +97,11 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                     if (root.isDirectory) {
                         root.list()?.forEach { file ->
                             val f = File(root, file)
-                            if (f.isDirectory) rmDirsAndFiles(f)
-                            else if(f.isFile) f.delete()
-                            else throw RuntimeException("recurRm:Unknown file type: $f")
+                            when {
+                                f.isDirectory -> rmDirsAndFiles(f)
+                                f.isFile -> f.delete()
+                                else -> throw RuntimeException("recurRm:Unknown file type: $f")
+                            }
                         }
                         root.delete()
                     }
