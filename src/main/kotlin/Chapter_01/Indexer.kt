@@ -33,8 +33,9 @@ import java.io.FileFilter
 import java.lang.Exception
 import java.lang.RuntimeException
 
-open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
+val HOME = File(System.getenv("PWD"))
 
+open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
   @Suppress("DEPRECATION")
   private val writer: IndexWriter = IndexWriter(
     FSDirectory.open(INDEX_DIR),  //3
@@ -65,7 +66,7 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
     return writer.numDocs() //5
   }
 
-  private class TextFilesFilter : FileFilter {
+  class TextFilesFilter : FileFilter {
     override fun accept(path: File): Boolean {
       return path.name.toLowerCase() //6
           .endsWith(".txt") //6
@@ -73,7 +74,7 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
   }
 
   @Throws(Exception::class)
-  protected fun getDocument(f: File): Document {
+  fun getDocument(f: File): Document {
     val doc = Document()
     doc.add(Field("contents", FileReader(f))) //7
     doc.add(
@@ -100,8 +101,7 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
 
 
   companion object {
-    val HOME = File(System.getenv("PWD"))
-    fun mkDirsIfNeeded (dirs : String) :File {
+    private fun mkDirsIfNeeded (dirs : String) :File {
       var toMake = HOME
       if (File(toMake, dirs).exists())
         return File(toMake, dirs)
@@ -116,7 +116,7 @@ open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
     @JvmStatic
     fun main(args: Array<String>) {
       val dataDir = File(System.getenv("PWD") + "/data")
-      val indexDir = mkDirsIfNeeded("${javaClass.packageName}.out/indexerOut")
+      val indexDir = mkDirsIfNeeded("indexes/${javaClass.packageName}/indexerOut")
       if (!indexDir.exists() && !indexDir.mkdir())
         throw RuntimeException("$indexDir doesn't exist and mkdir failed")
 

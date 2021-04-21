@@ -38,7 +38,7 @@ object Searcher {
     @JvmStatic
     fun main(args: Array<String>) {
         val indexDir = File(
-            "${System.getenv("PWD")}/${javaClass.packageName}.out/indexerOut"
+        "${System.getenv("PWD")}/indexes/${javaClass.packageName}/indexerOut"
         )
         if (!indexDir.exists())
             throw RuntimeException("$indexDir doesn't exist and mkdir failed")
