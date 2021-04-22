@@ -15,7 +15,6 @@
 package Chapter_03;
 
 import junit.framework.TestCase;
-import lia.common.TestUtil;
 
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.BooleanQuery;
