@@ -27,4 +27,7 @@ val DATA_DIR = File(System.getenv("PWD") + "/data")
 
 val ANALYZER = WhitespaceAnalyzer(LUCENE_VERSION)
 
-
+// this is our test data created from the data/*.txt.
+// Key is the name of the data file and the list contains
+// contents of the file chopped into lines of max 80 characters.
+val chunkedTextFiles = mutableMapOf<String,MutableList<String>>()

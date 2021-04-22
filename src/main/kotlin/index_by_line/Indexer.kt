@@ -1,8 +1,23 @@
+/*
+ * Copyright sjs@kana-tutor.com 2021
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific lan
+ */
+
+
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package index_by_line
 
-import org.apache.lucene.analysis.WhitespaceAnalyzer
 import org.apache.lucene.document.Fieldable
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.index.IndexWriterConfig
@@ -11,14 +26,8 @@ import java.io.File
 import java.lang.Exception
 import java.lang.RuntimeException
 
-import org.apache.lucene.util.Version
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
-
-val INDEX_HOME = File(System.getenv("PWD"), "indexes")
-val DATA_DIR = File(System.getenv("PWD") + "/data")
-
-val LUCENE_VERSION = Version.LUCENE_36
 
 private fun Document._add(field:Fieldable):Document {
     this.add(field)
@@ -31,9 +40,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                 FSDirectory.open(indexDir),
                 // use writerconfig instead of directly accessing
                 // the analyzer.
-                IndexWriterConfig(LUCENE_VERSION,
-                    WhitespaceAnalyzer(LUCENE_VERSION)
-                )
+                IndexWriterConfig(LUCENE_VERSION, ANALYZER)
             )
     init {
         val doc = Document()
@@ -64,6 +71,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                         Field.Index.ANALYZED
                     )
                 )
+                // println("$fName:${text.length}")
                 textSize += text.length
                 lineCount++
             }
@@ -76,7 +84,6 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
         w.close()
     }
     companion object {
-        val csvData = mutableMapOf<String,MutableList<String>>()
         @Throws(Exception::class)
         @JvmStatic
         fun main(args: Array<String>) {
@@ -121,11 +128,21 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                 val file = File(DATA_DIR, fName)
                 val br = file.bufferedReader()
                 var line : String? = br.readLine()?.trim()
+                chunkedTextFiles[fName] = mutableListOf()
                 while(line != null) {
-                    if (csvData[fName] == null)
-                        csvData[fName] = mutableListOf()
-                    line.chunked(100).forEach { chunk ->
-                        csvData[fName]!!.add(chunk)
+                    if (line.isNotEmpty()) {
+                        var l = line.split(" ").filter { it.isNotEmpty() }.toMutableList()
+                        var lo = ""
+                        var nextWord = ""
+                        while (l.size > 0) {
+                            nextWord = l.removeAt(0)
+                            if ((lo.length + nextWord.length + 1) > 80) {
+                                chunkedTextFiles[fName]!!.add(lo)
+                                lo = nextWord
+                            }
+                            else lo = "$lo $nextWord"
+                        }
+                        chunkedTextFiles[fName]!!.add(lo)
                     }
                     line = br.readLine()?.trim()
                 }
@@ -133,7 +150,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
             }
 
             val start = System.currentTimeMillis()
-            val indexer = Indexer(csvData, indexDir)
+            val indexer = Indexer(chunkedTextFiles, indexDir)
             /*
             val numIndexed: Int = try {
                 indexer.index(Indexer.TextFilesFilter())
