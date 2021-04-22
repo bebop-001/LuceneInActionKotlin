@@ -21,13 +21,19 @@ import org.apache.lucene.analysis.WhitespaceAnalyzer
 import org.apache.lucene.util.Version
 import java.io.File
 
-val LUCENE_VERSION = Version.LUCENE_36
-val INDEX_HOME = File(System.getenv("PWD"), "indexes")
-val DATA_DIR = File(System.getenv("PWD") + "/data")
-
-val ANALYZER = WhitespaceAnalyzer(LUCENE_VERSION)
 
 // this is our test data created from the data/*.txt.
 // Key is the name of the data file and the list contains
 // contents of the file chopped into lines of max 80 characters.
-val chunkedTextFiles = mutableMapOf<String,MutableList<String>>()
+val chunkedTextFiles = mutableMapOf<String, MutableList<String>>()
+
+object Common {
+    val LUCENE_VERSION = Version.LUCENE_36
+
+    val INDEX_HOME = File(System.getenv("PWD"), "indexes")
+    val INDEX_DIR = File(INDEX_HOME, javaClass.packageName)
+
+    val DATA_DIR = File(System.getenv("PWD") + "/data")
+
+    val ANALYZER = WhitespaceAnalyzer(LUCENE_VERSION)
+}

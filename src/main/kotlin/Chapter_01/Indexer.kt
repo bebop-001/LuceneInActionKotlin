@@ -35,7 +35,7 @@ import java.lang.RuntimeException
 
 val HOME = File(System.getenv("PWD"))
 
-open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
+private open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
   @Suppress("DEPRECATION")
   private val writer: IndexWriter = IndexWriter(
     FSDirectory.open(INDEX_DIR),  //3

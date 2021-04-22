@@ -18,6 +18,7 @@
 
 package index_by_line
 
+
 import org.apache.lucene.document.Fieldable
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.index.IndexWriterConfig
@@ -28,6 +29,11 @@ import java.lang.RuntimeException
 
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
+
+import index_by_line.Common.DATA_DIR
+import index_by_line.Common.INDEX_DIR
+import index_by_line.Common.LUCENE_VERSION
+import index_by_line.Common.ANALYZER
 
 private fun Document._add(field:Fieldable):Document {
     this.add(field)
@@ -114,11 +120,10 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                     }
                 }
             }
-            val indexDir = File(INDEX_HOME, javaClass.packageName)
-            rmDirsAndFiles(indexDir)
-            mkDir(indexDir)
-            if (!indexDir.exists() && !indexDir.mkdir())
-                throw RuntimeException("$indexDir doesn't exist and mkdir failed")
+            rmDirsAndFiles(INDEX_DIR)
+            mkDir(INDEX_DIR)
+            if (!INDEX_DIR.exists() && !INDEX_DIR.mkdir())
+                throw RuntimeException("$INDEX_DIR doesn't exist and mkdir failed")
             // read any .txt files and save contents by
             // line in a map keyed to the filename.  Lines are "chunked" to
             // 100 chars max.  This is our test data.
@@ -150,7 +155,7 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
             }
 
             val start = System.currentTimeMillis()
-            val indexer = Indexer(chunkedTextFiles, indexDir)
+            val indexer = Indexer(chunkedTextFiles, INDEX_DIR)
             /*
             val numIndexed: Int = try {
                 indexer.index(Indexer.TextFilesFilter())

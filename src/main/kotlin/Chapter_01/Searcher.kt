@@ -33,7 +33,7 @@ import org.apache.lucene.search.IndexSearcher as IndexSearcher1
  * This code was originally written for
  * Erik's Lucene intro java.net article
  */
-object Searcher {
+private object Searcher {
     @Throws(IllegalArgumentException::class, IOException::class, ParseException::class)
     @JvmStatic
     fun main(args: Array<String>) {
