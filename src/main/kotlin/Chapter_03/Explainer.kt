@@ -44,10 +44,9 @@ object Explainer {
                 exitProcess(0)
             }
 
-            @SuppressWarnings("DEPRECATION")
             val parser = QueryParser(
-                Version.LUCENE_30,
-                "contents", SimpleAnalyzer()
+                Version.LUCENE_36,
+                "contents", SimpleAnalyzer(Version.LUCENE_36)
             )
             val query = parser.parse(queryExpression)
             println("Query: $queryExpression")
