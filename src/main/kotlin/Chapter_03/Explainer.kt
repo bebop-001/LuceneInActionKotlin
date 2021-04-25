@@ -15,41 +15,54 @@
 package Chapter_03
 
 import org.apache.lucene.analysis.SimpleAnalyzer
+import org.apache.lucene.index.IndexReader
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.util.Version
 import java.io.File
+import java.lang.RuntimeException
+import kotlin.system.exitProcess
 
 // From chapter 3
 object Explainer {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        if (args.size != 2) {
-            System.err.println("Usage: Explainer <index dir> <query>")
-            System.exit(1)
-        }
-        val indexDir = args[0]
-        val queryExpression = args[1]
-        val directory: Directory = FSDirectory.open(File(indexDir))
-        val parser = QueryParser(
-            Version.LUCENE_30,
-            "contents", SimpleAnalyzer()
+        val indexDir = File(
+            "${System.getenv("PWD")}/data/ExampleBookIndex"
         )
-        val query = parser.parse(queryExpression)
-        println("Query: $queryExpression")
-        val searcher = IndexSearcher(directory)
-        val topDocs = searcher.search(query, 10)
-        for (match in topDocs.scoreDocs) {
-            val explanation = searcher.explain(query, match.doc) //#A
-            println("----------")
-            val doc = searcher.doc(match.doc)
-            println(doc["title"])
-            println(explanation.toString()) //#B
+        if (!indexDir.exists())
+            throw RuntimeException("Failed to find book index at $indexDir")
+        val directory: Directory = FSDirectory.open(indexDir)
+        while(true) {
+            print("Input search term > ")
+            val queryExpression = readLine()
+            if (queryExpression.equals("q")) {
+                println("bye...")
+                exitProcess(0)
+            }
+
+            @SuppressWarnings("DEPRECATION")
+            val parser = QueryParser(
+                Version.LUCENE_30,
+                "contents", SimpleAnalyzer()
+            )
+            val query = parser.parse(queryExpression)
+            println("Query: $queryExpression")
+            val sd = IndexReader.open(directory)
+            val searcher = IndexSearcher(sd)
+            val topDocs = searcher.search(query, 10)
+            for (match in topDocs.scoreDocs) {
+                val explanation = searcher.explain(query, match.doc) //#A
+                println("----------")
+                val doc = searcher.doc(match.doc)
+                println(doc["title"])
+                println(explanation.toString()) //#B
+            }
+            sd.close()
+            searcher.close()
         }
-        searcher.close()
-        directory.close()
     }
 }
