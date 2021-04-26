@@ -5,13 +5,11 @@ package index_by_line
 // Mostly from Chapter_03/BasicSearchingTest.
 
 import index_by_line.Common.INDEX_DIR
-import org.apache.lucene.document.Document
 import org.apache.lucene.document.FieldSelector
 import org.apache.lucene.document.FieldSelectorResult
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.index.Term
 import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.search.Query
 import org.apache.lucene.search.TermQuery
 import org.apache.lucene.search.TopDocs
 import org.apache.lucene.store.Directory
@@ -47,26 +45,5 @@ class SimpleTermQuery(val dir: File) {
         indexReader.close()
         searcher.close()
         return topDocs
-    }
-
-    companion object {
-        @JvmStatic
-        fun main(args: Array<String>) {
-
-            val simpleSearch = SimpleTermQuery(INDEX_DIR)
-            val results = simpleSearch.search("public")
-            println("results:$results")
-
-            var query = ""
-            while (query != "q") {
-                print("Enter query or \"q\" to quit. > ")
-                query = readLine()!!.trim()
-                if (query == "q") {
-                    println("bye...")
-                    exitProcess(0)
-                }
-                val results :TopDocs = simpleSearch.search(query)
-            }
-        }
     }
 }
