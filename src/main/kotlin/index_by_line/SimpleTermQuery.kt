@@ -1,3 +1,5 @@
+@file:Suppress("MemberVisibilityCanBePrivate")
+
 package index_by_line
 
 // Mostly from Chapter_03/BasicSearchingTest.
@@ -26,68 +28,25 @@ class SimpleTermQuery(val dir: File) {
             throw RuntimeException("$dir doesn't exist and mkdir failed")
     }
 
-    class mfs : FieldSelector
-    {
-        override fun accept(fieldName: String?): FieldSelectorResult {
-            return FieldSelectorResult.LOAD
+    fun search(queryString:String) : TopDocs {
+        val indexReader = IndexReader.open(searcherDir)
+        indexReader.document(0, FieldSelector { FieldSelectorResult.LOAD })
+        val searcher = IndexSearcher(indexReader)
+        val term = Term("text", queryString)
+        val query = TermQuery(term)
+        val topDocs : TopDocs = searcher.search(query, 15)
+        topDocs.scoreDocs.forEachIndexed{ idx, scoreDoc ->
+            println("---------------")
+            /*
+            indexReader.document(scoreDoc.doc, {FieldSelectorResult.LOAD})
+            val doc = searcher.doc(scoreDoc.doc)
+            println("fName:${doc["fName"]}, index:${doc["index"]}")
+            */
+            println(searcher.explain(query, scoreDoc.doc))
         }
-    }
-    val fieldInfo = mutableMapOf<String,MutableList<Int>>()
-    val fileNames = mutableListOf<String>()
-    fun search(query:String) : TopDocs {
-        val sd = searcherDir
-        val ir = DirectoryReader.open
-        val searcher = IndexSearcher(
-            IndexReader.open(sd))
-        val term = Term("text", query)
-        val t2 = Term("index", query)
-        val q2 = TermQuery(t2)
-        val r2 = searcher.search(q2,15)
-        val q : Query = TermQuery(term)
-        val results = searcher.search(
-            q, 15
-        )
-        if (fieldInfo.isEmpty()) {
-            (0 until searcher.maxDoc()).forEach { docId ->
-                val doc = searcher.doc(docId)
-                FieldSelectorResult.LOAD
-                val f = searcher.doc(docId).get("index")
-                val n = searcher.doc(docId).get("fName")
-                val fields = searcher.doc(docId).fields.toMutableList()
-                var fName:String? = null
-                var idxx:Int? = null
-                for (field in fields) {
-                    val name = field.name()
-                    if (name == "fName") {
-                        if (fName != field.stringValue()) {
-                            fName = field.stringValue()
-                            fieldInfo[fName] = mutableListOf()
-                            fileNames.add(fName)
-                        }
-                    }
-                    else if (name == "index")
-                        idxx = field.stringValue().toInt()
-                    else throw RuntimeException(
-                        "${javaClass.simpleName}:search:bad field name: ${field.name()}"
-                    )
-                    if (fName != null && idxx != null) {
-                        fieldInfo[fName]!!.add(idxx)
-                        fName = null; idxx = null
-                    }
-                }
-            }
-        }
-        println("${results.totalHits} matches for $query")
-        results.scoreDocs.forEachIndexed{ idxx, scoreDoc ->
-            val docIdx = scoreDoc.doc
-            val x = searcher.explain(q, docIdx)
-            val d : Document = searcher.doc(docIdx)
-            val fName = fileNames[docIdx]
-            val index = d.getField("index").stringValue().toInt()
-            println("%2d) %d:%s:%d = %s".format(idxx + 1, docIdx, fName, index, x))
-        }
+        indexReader.close()
         searcher.close()
-        return results
+        return topDocs
     }
 
     companion object {
