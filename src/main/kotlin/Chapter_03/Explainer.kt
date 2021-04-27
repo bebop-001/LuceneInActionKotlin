@@ -18,6 +18,7 @@ import org.apache.lucene.analysis.SimpleAnalyzer
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.search.IndexSearcher
+import org.apache.lucene.search.ScoreDoc
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.util.Version
@@ -53,7 +54,7 @@ object Explainer {
             val sd = IndexReader.open(directory)
             val searcher = IndexSearcher(sd)
             val topDocs = searcher.search(query, 10)
-            for (match in topDocs.scoreDocs) {
+            for (match:ScoreDoc in topDocs.scoreDocs) {
                 val explanation = searcher.explain(query, match.doc) //#A
                 println("----------")
                 val doc = searcher.doc(match.doc)

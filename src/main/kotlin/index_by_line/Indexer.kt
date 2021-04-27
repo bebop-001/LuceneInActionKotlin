@@ -34,6 +34,8 @@ import index_by_line.Common.DATA_DIR
 import index_by_line.Common.INDEX_DIR
 import index_by_line.Common.LUCENE_VERSION
 import index_by_line.Common.ANALYZER
+import org.apache.lucene.document.NumericField
+import org.apache.lucene.search.function.IntFieldSource
 
 private fun Document._add(field:Fieldable):Document {
     this.add(field)
@@ -49,26 +51,19 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                 IndexWriterConfig(LUCENE_VERSION, ANALYZER)
             )
     init {
-        val doc = Document()
         val w = writer
         var totalSize = 0
+        var filesIdx = 1
+        var index = 0
         data.keys.forEach { fName ->
             var lineCount = 0
             var textSize = 0
-            data[fName]!!.forEachIndexed { index, text ->
+            data[fName]!!.forEachIndexed { line_number, text ->
+                val doc = Document()
                 doc._add(
-                    Field(
-                        "fName", fName,
-                        Field.Store.YES,
-                        Field.Index.NOT_ANALYZED
-                    )
-                )
-                ._add(
-                    Field(
-                        "index", lineCount.toString(),
-                        Field.Store.YES,
-                        Field.Index.NOT_ANALYZED
-                    )
+                    NumericField("index", Field.Store.YES,
+                        true)
+                        .setIntValue(index++)
                 )
                 ._add(
                     Field(
@@ -77,12 +72,13 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                         Field.Index.ANALYZED
                     )
                 )
+                // println("index:$lineCount, fName:$fName, text:${text.length}")
                 // println("$fName:${text.length}")
                 textSize += text.length
                 lineCount++
+                w.addDocument(doc)
             }
-            w.addDocument(doc)
-            println("%35s:%,9d:%4d".format(fName, textSize, lineCount))
+            println("%2d) %35s:%,9d:%4d".format(filesIdx++, fName, textSize, lineCount))
             totalSize += textSize
         }
         println("%35s:%,9d bytes".format("TOTAL", totalSize))
@@ -153,6 +149,17 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
                 }
                 br.close()
             }
+            val textFilesCsv = File(DATA_DIR,"text_files_indexed.csv").outputStream().bufferedWriter()
+            textFilesCsv.write("""# This file is mostly for debug.
+                |# Hopefully with lucene working, it won't be needed.
+                |""".trimMargin("|"))
+            var index = 0
+            chunkedTextFiles.keys.forEach{key ->
+                chunkedTextFiles[key]!!.forEachIndexed{ idx, text ->
+                    textFilesCsv.write("${index++}:$key:$idx:$text\n")
+                }
+            }
+            textFilesCsv.close()
 
             val start = System.currentTimeMillis()
             val indexer = Indexer(chunkedTextFiles, INDEX_DIR)
