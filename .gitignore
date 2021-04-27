@@ -4,7 +4,10 @@
 libs/
 out/
 indexes/
+data/*.csv
 *.iml
 *.sw*
 err
 t
+t[0-9]
+t.*

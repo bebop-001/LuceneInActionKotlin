@@ -27,15 +27,16 @@ import java.io.File
 import java.lang.Exception
 import java.lang.RuntimeException
 
-import org.apache.lucene.document.Document
-import org.apache.lucene.document.Field
+
 
 import index_by_line.Common.DATA_DIR
 import index_by_line.Common.INDEX_DIR
 import index_by_line.Common.LUCENE_VERSION
 import index_by_line.Common.ANALYZER
+
+import org.apache.lucene.document.Document
+import org.apache.lucene.document.Field
 import org.apache.lucene.document.NumericField
-import org.apache.lucene.search.function.IntFieldSource
 
 private fun Document._add(field:Fieldable):Document {
     this.add(field)
@@ -54,20 +55,26 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
         val w = writer
         var totalSize = 0
         var filesIdx = 1
-        var index = 0
         data.keys.forEach { fName ->
             var lineCount = 0
             var textSize = 0
-            data[fName]!!.forEachIndexed { line_number, text ->
+            data[fName]!!.forEachIndexed{fLineNumber, text ->
                 val doc = Document()
                 doc._add(
-                    NumericField("index", Field.Store.YES,
-                        true)
-                        .setIntValue(index++)
+                    NumericField("line_number", Field.Store.YES,
+                        false)
+                        .setIntValue(fLineNumber)
                 )
                 ._add(
                     Field(
-                        "text", text,
+                        "file_name", fName,
+                        Field.Store.YES,
+                        Field.Index.NOT_ANALYZED
+                    )
+                )
+                ._add(
+                    Field(
+                        "text", text.toLowerCase(),
                         Field.Store.NO,
                         Field.Index.ANALYZED
                     )
@@ -153,10 +160,9 @@ class Indexer (data:Map<String,List<String>>, val indexDir: File) {
             textFilesCsv.write("""# This file is mostly for debug.
                 |# Hopefully with lucene working, it won't be needed.
                 |""".trimMargin("|"))
-            var index = 0
-            chunkedTextFiles.keys.forEach{key ->
-                chunkedTextFiles[key]!!.forEachIndexed{ idx, text ->
-                    textFilesCsv.write("${index++}:$key:$idx:$text\n")
+            chunkedTextFiles.keys.forEach{fName ->
+                chunkedTextFiles[fName]!!.forEachIndexed{ fLineNumber, text ->
+                    textFilesCsv.write("$fName:$fLineNumber:$text\n")
                 }
             }
             textFilesCsv.close()

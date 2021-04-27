@@ -1,10 +1,21 @@
+/*
+ * Copyright sjs@kana-tutor.com 2021
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific lan
+ */
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 package index_by_line
 
-// Mostly from Chapter_03/BasicSearchingTest.
-
-import index_by_line.Common.INDEX_DIR
 import org.apache.lucene.document.FieldSelector
 import org.apache.lucene.document.FieldSelectorResult
 import org.apache.lucene.index.IndexReader
@@ -13,7 +24,6 @@ import org.apache.lucene.search.*
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.FSDirectory
 import java.io.File
-import kotlin.system.exitProcess
 
 class SimpleTermQuery(val dir: File) {
     // val indexDir = Directory(dir)
@@ -24,8 +34,9 @@ class SimpleTermQuery(val dir: File) {
             throw RuntimeException("$dir doesn't exist and mkdir failed")
     }
 
-    fun booleanQuerySearch(queryString: String) : List<Int> {
-        val rv = mutableListOf<Int>()
+    /*
+    fun booleanQuerySearch(queryString: String) : List<Pair<String,Int>> {
+        val rv = mutableListOf<Pair<String,Int>>()
         val termQuery = TermQuery(
             Term("text", queryString)
         )
@@ -43,7 +54,7 @@ class SimpleTermQuery(val dir: File) {
         var idx = 1
         topDocs.scoreDocs.forEachIndexed{ idx, scoreDoc ->
             val  doc = searcher.doc(scoreDoc.doc)
-            val fileIndex = doc.get("index").toInt()
+            val fileIndex = doc.get("line_number").toInt()
             println("$idx ------- booleanQuerySearch $fileIndex --------")
             rv.add(fileIndex)
             println(searcher.explain(booleanQuery, scoreDoc.doc))
@@ -52,23 +63,24 @@ class SimpleTermQuery(val dir: File) {
         searcher.close()
         return rv
     }
+*/
 
 
 
-
-    fun search(queryString:String) : List<Int> {
+    fun search(queryString:String) : List<Pair<String,Int>> {
         val indexReader = IndexReader.open(searcherDir)
-        val rv = mutableListOf<Int>()
+        val rv = mutableListOf<Pair<String,Int>>()
         indexReader.document(0, FieldSelector { FieldSelectorResult.LOAD })
         val searcher = IndexSearcher(indexReader)
-        val term = Term("text", queryString)
+        val term = Term("text", queryString.toLowerCase())
         val query = TermQuery(term)
-        val topDocs : TopDocs = searcher.search(query, 15)
+        val topDocs : TopDocs = searcher.search(query, 200)
         topDocs.scoreDocs.forEachIndexed{ idx, scoreDoc ->
             val  doc = searcher.doc(scoreDoc.doc)
-            val fileIndex = doc.get("index").toInt()
-            rv.add(fileIndex)
-            println("$idx ------- $fileIndex --------")
+            val lineNumber = doc.get("line_number").toInt()
+            val fName = doc.get("file_name")
+            rv.add(Pair(fName,lineNumber))
+            println("$idx $fName $lineNumber ---------------")
             println(searcher.explain(query, scoreDoc.doc))
         }
         indexReader.close()
