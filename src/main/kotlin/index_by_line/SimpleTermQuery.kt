@@ -25,13 +25,13 @@ import org.apache.lucene.store.Directory
 import org.apache.lucene.store.FSDirectory
 import java.io.File
 
-class SimpleTermQuery(val dir: File) {
+class SimpleTermQuery(val indexDir: File) {
     // val indexDir = Directory(dir)
     val searcherDir:Directory
-        get() = FSDirectory.open(dir)
+        get() = FSDirectory.open(indexDir)
     init {
-        if (!dir.exists())
-            throw RuntimeException("$dir doesn't exist and mkdir failed")
+        if (!indexDir.exists())
+            throw RuntimeException("${javaClass.simpleName}: index directory$indexDir")
     }
 
     /*
