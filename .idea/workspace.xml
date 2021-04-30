@@ -4,7 +4,9 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Changed an error message and variable name." />
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Changed an error message and variable name.">
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

@@ -37,3 +37,17 @@ I will also be implementing some other utils to make sure
 I understand what I'm doing.
 
 Steve S.<br>
+
+**NOTE:** Before the project will compile you will compile,
+you will need to configure the project SDK and
+output directories.  This is done in the File->Project Settings
+directory.
+* Open File->Project Structure
+* Select "Project"
+* In the SDK item, select your Java JDK.  I use JDK 11 but
+Java 8 should work.
+* From the "Project Compiler Output" dropdown, select
+the out directory above the source directory.  This should
+be the default.
+* You may need to run "Invalidate Caches and Restart" and
+at this point you should be able to run Build->Rebuild Project.
