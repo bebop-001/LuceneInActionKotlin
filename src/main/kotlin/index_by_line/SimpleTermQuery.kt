@@ -72,16 +72,22 @@ class SimpleTermQuery(val indexDir: File) {
         val rv = mutableListOf<Pair<String,Int>>()
         indexReader.document(0, FieldSelector { FieldSelectorResult.LOAD })
         val searcher = IndexSearcher(indexReader)
-        val term = Term("text", queryString.toLowerCase())
+        // var t = queryString.split("\\s+".toRegex()).map{"text:$it"}.joinToString(" ")
+        var t = queryString
+        println("t=\"$t\"")
+        var term = Term("text", t)
         val query = TermQuery(term)
         val topDocs : TopDocs = searcher.search(query, 200)
+        println("Query:<$query>")
         topDocs.scoreDocs.forEachIndexed{ idx, scoreDoc ->
             val  doc = searcher.doc(scoreDoc.doc)
             val lineNumber = doc.get("line_number").toInt()
             val fName = doc.get("file_name")
             rv.add(Pair(fName,lineNumber))
-            println("$idx $fName $lineNumber ---------------")
-            println(searcher.explain(query, scoreDoc.doc))
+            if (EXAMINE) {
+                println("$idx $fName $lineNumber ---------------")
+                println(searcher.explain(query, scoreDoc.doc))
+            }
         }
         indexReader.close()
         searcher.close()

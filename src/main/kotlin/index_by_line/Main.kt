@@ -18,10 +18,28 @@ import org.apache.lucene.search.TopDocs
 import java.io.File
 import java.lang.IndexOutOfBoundsException
 import java.lang.RuntimeException
+import java.security.KeyStore
 import kotlin.system.exitProcess
 
+var EXAMINE = false
+private val USAGE = """USAGE: CsvSearch --examine
+    |Search a csv file created from text files supplied with
+    |the LucineInAction software for a term.  Search is interactive.
+    |  --examine : turn on examine for search results.
+""".trimMargin()
 
 fun main(args: Array<String>) {
+    if (args.size > 0) {
+        args.forEach { arg ->
+            when {
+                arg == "--examine" -> EXAMINE = true
+                else -> throw RuntimeException(
+                    "$USAGE\nUnrecognized argument:\"$arg"
+                )
+            }
+        }
+    }
+
 
     val simpleSearch = SimpleTermQuery(Common.INDEX_DIR)
     var query = ""

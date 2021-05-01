@@ -34,6 +34,4 @@ object Common {
     val INDEX_DIR = File(INDEX_HOME, javaClass.packageName)
 
     val DATA_DIR = File(System.getenv("PWD") + "/data")
-
-    val ANALYZER = WhitespaceAnalyzer(LUCENE_VERSION)
 }
