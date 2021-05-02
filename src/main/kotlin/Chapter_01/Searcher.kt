@@ -13,7 +13,6 @@
  * See the License for the specific lan      
 */
 package Chapter_01
-
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.analysis.standard.StandardAnalyzer
@@ -34,7 +33,6 @@ import kotlin.system.exitProcess
 private object Searcher {
     fun search(indexDir: File, queryString: String) : Pair<String,String> {
         val dir: Directory = FSDirectory.open(indexDir) //3
-        @Suppress("DEPRECATION")
         val indexSearcher = IndexSearcher(
             IndexReader.open(dir)) //3
         val parser = QueryParser(
