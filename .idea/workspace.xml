@@ -4,11 +4,15 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="lint">
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Tweaked USAGE statement.">
+      <change afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Indexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Indexer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,12 +68,15 @@
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
       <recent name="hello_lucene" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.ch_1_search">
+  <component name="RunManager" selected="Kotlin.csv_search">
     <configuration type="JetRunConfigurationType" temporary="true">
       <module name="scratch" />
       <option name="VM_PARAMETERS" value="" />
@@ -133,14 +140,15 @@
       </method>
     </configuration>
     <configuration name="csv_indexer" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="index_by_line.IndexerKt" />
+      <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.CsvIndexerKt" />
       <module name="scratch" />
+      <option name="PROGRAM_PARAMETERS" value="--standard" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="csv_search" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="index_by_line.MainKt" />
+      <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.MainKt" />
       <module name="scratch" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -395,7 +403,21 @@
       <option name="project" value="LOCAL" />
       <updated>1619925066457</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Move main to top level.">
+      <created>1619974989632</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1619974989632</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Tweaked USAGE statement.">
+      <created>1619976102610</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1619976102610</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -432,13 +454,15 @@
     <MESSAGE value="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off." />
     <MESSAGE value="Added usage to main.  Updated readme." />
     <MESSAGE value="lint" />
-    <option name="LAST_COMMIT_MESSAGE" value="lint" />
+    <MESSAGE value="Move main to top level." />
+    <MESSAGE value="Tweaked USAGE statement." />
+    <option name="LAST_COMMIT_MESSAGE" value="Tweaked USAGE statement." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt</url>
+          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
           <line>131</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
@@ -447,7 +471,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <condition expression="text.length == 1" language="kotlin" />
-          <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt</url>
+          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
           <line>121</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
@@ -457,18 +481,13 @@
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt</url>
-          <line>81</line>
+          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt</url>
+          <line>85</line>
           <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt</url>
-          <line>77</line>
-          <option name="timeStamp" value="108" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt</url>
-          <line>87</line>
+          <line>85</line>
           <option name="timeStamp" value="116" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
