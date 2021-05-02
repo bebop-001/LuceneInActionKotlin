@@ -68,7 +68,7 @@ private object Searcher {
         }
     }
 }
-private val USAGE = """USAGE:
+private const val USAGE = """USAGE:
     Boolean Operators: AND, OR, NOT, () are supported
     Wildcards: 
         Can not begin or end string.
@@ -80,7 +80,7 @@ private val USAGE = """USAGE:
 """
 fun main(args: Array<String>) {
     val indexDir = File(
-        "${System.getenv("PWD")}" +
+        System.getenv("PWD") +
             "/indexes/${Searcher.javaClass.packageName}/indexerOut"
     )
     if (!indexDir.exists())
