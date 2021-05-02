@@ -4,13 +4,10 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Changed an error message and variable name.">
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +35,9 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1rG1Toh1SvUmPT6d2TxE61p9598" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -68,7 +68,7 @@
       <recent name="hello_lucene" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.csv_indexer">
+  <component name="RunManager" selected="Application.ch_1_search">
     <configuration type="JetRunConfigurationType" temporary="true">
       <module name="scratch" />
       <option name="VM_PARAMETERS" value="" />
@@ -121,10 +121,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ch_1_search" type="JetRunConfigurationType">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_01.SearcherKt" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ch_2_indexing" type="JetRunConfigurationType">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_02.lia.indexing.VerboseIndexing" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="csv_indexer" type="JetRunConfigurationType">
       <module name="scratch" />
       <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="--standard" />
+      <option name="PROGRAM_PARAMETERS" value="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PASS_PARENT_ENVS" value="true" />
@@ -161,6 +187,8 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.ch_1_search" />
+      <item itemvalue="Application.ch_2_indexing" />
       <item itemvalue="Application.ch1_Indexer" />
       <item itemvalue="Application.ch3_Explainer" />
       <item itemvalue="Application.csv_indexer" />
@@ -384,7 +412,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619541225060</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off.">
+      <created>1619903817246</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619903817246</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -419,7 +454,8 @@
     <MESSAGE value="moved main into its own file." />
     <MESSAGE value="search is sort-of working." />
     <MESSAGE value="Changed an error message and variable name." />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed an error message and variable name." />
+    <MESSAGE value="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off." />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -428,11 +464,6 @@
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Indexer.kt</url>
           <line>119</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt</url>
-          <line>47</line>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Indexer.kt</url>
@@ -446,7 +477,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt</url>
-          <line>126</line>
+          <line>131</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -455,7 +486,7 @@
         <line-breakpoint enabled="true" type="kotlin-line">
           <condition expression="text.length == 1" language="kotlin" />
           <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt</url>
-          <line>116</line>
+          <line>121</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -465,7 +496,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt</url>
-          <line>95</line>
+          <line>98</line>
           <option name="timeStamp" value="99" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
@@ -477,6 +508,11 @@
           <url>file://$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt</url>
           <line>77</line>
           <option name="timeStamp" value="108" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt</url>
+          <line>88</line>
+          <option name="timeStamp" value="116" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

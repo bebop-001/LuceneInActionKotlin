@@ -51,3 +51,10 @@ the out directory above the source directory.  This should
 be the default.
 * You may need to run "Invalidate Caches and Restart" and
 at this point you should be able to run Build->Rebuild Project.
+
+5/1/2021 **UPDATE**<br>
+The example from Chapter 1 supports wild card searching.  There
+is help printed by the USAGE statement when the process
+starts.  See 
+<a href="https://lucene.apache.org/core/3_6_0/queryparsersyntax.html#GroupingBoolean">
+the documents</a> for a more complete discussion.

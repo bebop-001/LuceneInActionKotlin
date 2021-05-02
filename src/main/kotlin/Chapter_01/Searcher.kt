@@ -14,18 +14,16 @@
 */
 package Chapter_01
 
-import java.lang.IllegalArgumentException
-import java.io.IOException
 import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.analysis.standard.StandardAnalyzer
-import org.apache.lucene.queryParser.ParseException
+import org.apache.lucene.search.IndexSearcher
 import org.apache.lucene.store.Directory
+import org.apache.lucene.index.IndexReader
 import org.apache.lucene.util.Version
 import java.io.File
 import java.lang.RuntimeException
 import kotlin.system.exitProcess
-import org.apache.lucene.search.IndexSearcher as IndexSearcher1
 
 
 // From chapter 1
@@ -34,34 +32,11 @@ import org.apache.lucene.search.IndexSearcher as IndexSearcher1
  * Erik's Lucene intro java.net article
  */
 private object Searcher {
-    @Throws(IllegalArgumentException::class, IOException::class, ParseException::class)
-    @JvmStatic
-    fun main(args: Array<String>) {
-        val indexDir = File(
-        "${System.getenv("PWD")}/indexes/${javaClass.packageName}/indexerOut"
-        )
-        if (!indexDir.exists())
-            throw RuntimeException("$indexDir doesn't exist and mkdir failed")
-        var query = ""
-        while (query != "q") {
-            print("Enter query or \"q\" to quit. > ")
-            query = readLine()!!.trim()
-            if (query == "q") {
-                println("bye...")
-                exitProcess(0)
-            }
-            println(search(indexDir, query))
-            query = ""
-        }
-        val q = args[1] //2
-        search(indexDir, q)
-    }
-
-    @Throws(IOException::class, ParseException::class)
-    fun search(indexDir: File, queryString: String) : String {
+    fun search(indexDir: File, queryString: String) : Pair<String,String> {
         val dir: Directory = FSDirectory.open(indexDir) //3
         @Suppress("DEPRECATION")
-        val indexSearcher = IndexSearcher1(dir) //3
+        val indexSearcher = IndexSearcher(
+            IndexReader.open(dir)) //3
         val parser = QueryParser(
             Version.LUCENE_30,  // 4
             "contents",  //4
@@ -69,19 +44,62 @@ private object Searcher {
                 Version.LUCENE_30
             )
         ) //4
-        val query = parser.parse(queryString) //4
-        val start = System.currentTimeMillis()
-        val hits = indexSearcher.search(query, 10) //5
-        val end = System.currentTimeMillis()
-        var rv ="Found " + hits.totalHits +  //6
-            " document(s) (in " + (end - start) +  // 6
-            " milliseconds) that matched query '" +  // 6
-            queryString + "':" // 6
-        for (scoreDoc in hits.scoreDocs) {
-            val doc = indexSearcher.doc(scoreDoc.doc) //7
-            rv += "\n${doc["fullpath"]}" //8
+        try {
+            val query = parser.parse(queryString) //4
+            val start = System.currentTimeMillis()
+            val hits = indexSearcher.search(query, 10) //5
+            val end = System.currentTimeMillis()
+            val matches: List<String> = hits.scoreDocs.map { scoreDoc ->
+                indexSearcher.doc(scoreDoc.doc)!!["fullpath"]
+            }
+            indexSearcher.close() //9
+            return arrayListOf(
+                "${hits.totalHits} documents matched",
+                "Query string = <$queryString>",
+                "Query = <$query>",
+                "Time = ${end - start} milliseconds",
+                matches.joinToString("\n"),
+            ).joinToString("\n") to ""
         }
-        indexSearcher.close() //9
-        return rv
+        catch (e:Exception) {
+            return "" to "Received Exception:\n\t" +
+                e.toString().split(":\\s*".toRegex()).joinToString("\n\t") +
+                "\n"
+        }
     }
+}
+private val USAGE = """USAGE:
+    Boolean Operators: AND, OR, NOT, () are supported
+    Wildcards: 
+        Can not begin or end string.
+        "?": 1 of ane character, "*"
+    Proximity: "word_1 word_2"~N\" where N is word count between
+    Similarity:
+        word~N  where N is a value between 0.0 and 1.0.
+        word~   N defaults to 0.5.
+"""
+fun main(args: Array<String>) {
+    val indexDir = File(
+        "${System.getenv("PWD")}" +
+            "/indexes/${Searcher.javaClass.packageName}/indexerOut"
+    )
+    if (!indexDir.exists())
+        throw RuntimeException("$indexDir doesn't exist and mkdir failed")
+    println(USAGE)
+    var query = ""
+    while (query != "q") {
+        print("Enter query or \"q\" to quit. > ")
+        query = readLine()!!.trim()
+        if (query == "q") {
+            println("bye...")
+            exitProcess(0)
+        }
+        val (matches, errors) = Searcher.search(indexDir, query)
+        println (
+            if (errors.isNotEmpty()) "$errors\n$USAGE\n"
+            else matches
+        )
+    }
+    val q = args[1] //2
+    Searcher.search(indexDir, q)
 }
