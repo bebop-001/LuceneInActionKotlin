@@ -69,11 +69,13 @@ private object Searcher {
     }
 }
 private const val USAGE = """USAGE:
-    Boolean Operators: AND, OR, NOT, () are supported
+    Boolean Operators: 
+        AND, OR, NOT, () are supported
     Wildcards: 
         Can not begin or end string.
-        "?": 1 of ane character, "*"
-    Proximity: "word_1 word_2"~N\" where N is word count between
+        "?": 1 of ane character, "*": 0 or more of any character
+    Proximity:  "word_1 word_2"~N\" where N is word count between
+        words.
     Similarity:
         word~N  where N is a value between 0.0 and 1.0.
         word~   N defaults to 0.5.
