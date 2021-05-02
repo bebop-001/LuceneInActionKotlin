@@ -27,6 +27,7 @@ import org.apache.lucene.store.FSDirectory
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
+import org.apache.lucene.index.IndexWriterConfig
 import org.apache.lucene.util.Version
 import java.io.File
 import java.io.FileFilter
@@ -36,14 +37,13 @@ import java.lang.RuntimeException
 val HOME = File(System.getenv("PWD"))
 
 private open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
-  @Suppress("DEPRECATION")
   private val writer: IndexWriter = IndexWriter(
     FSDirectory.open(INDEX_DIR),  //3
-    StandardAnalyzer( //3
-      Version.LUCENE_30
-    ),  //3
-    true,  //3
-    IndexWriter.MaxFieldLength.UNLIMITED
+    IndexWriterConfig(Version.LUCENE_36,
+      StandardAnalyzer( //3
+        Version.LUCENE_30
+      )  //3
+    )
   )
 
   @Throws(IOException::class)
@@ -98,43 +98,39 @@ private open class Indexer(private val DATA_DIR: File, INDEX_DIR:File) {
     val doc = getDocument(f)
     writer.addDocument(doc) //10
   }
+}
 
-
-  companion object {
-    private fun mkDirsIfNeeded (dirs : String) :File {
-      var toMake = HOME
-      if (File(toMake, dirs).exists())
-        return File(toMake, dirs)
-      dirs.split("/").filter{it.isNotEmpty()}.forEach{dir ->
-        toMake = File(toMake, dir)
-        if (!toMake.exists() && !toMake.mkdir())
-          throw RuntimeException("mkdirs: Failed to create $toMake")
-      }
-      return toMake
-    }
-    @Throws(Exception::class)
-    @JvmStatic
-    fun main(args: Array<String>) {
-      val dataDir = File(System.getenv("PWD") + "/data")
-      val indexDir = mkDirsIfNeeded("indexes/${javaClass.packageName}/indexerOut")
-      if (!indexDir.exists() && !indexDir.mkdir())
-        throw RuntimeException("$indexDir doesn't exist and mkdir failed")
-
-        ("Usage: java " + Indexer::class.java.name
-            + " <index dir> <data dir>")
-      val start = System.currentTimeMillis()
-      val indexer = Indexer(dataDir, indexDir)
-      val numIndexed: Int = try {
-        indexer.index(TextFilesFilter())
-      }
-      finally {
-        indexer.close()
-      }
-      val end = System.currentTimeMillis()
-      println(
-        "Indexing " + numIndexed + " files took "
-            + (end - start) + " milliseconds"
-      )
-    }
+private fun mkDirsIfNeeded (dirs : String) :File {
+  var toMake = HOME
+  if (File(toMake, dirs).exists())
+    return File(toMake, dirs)
+  dirs.split("/").filter{it.isNotEmpty()}.forEach{dir ->
+    toMake = File(toMake, dir)
+    if (!toMake.exists() && !toMake.mkdir())
+      throw RuntimeException("mkdirs: Failed to create $toMake")
   }
+  return toMake
+}
+fun main(args: Array<String>) {
+  val dataDir = File(System.getenv("PWD") + "/data")
+  val indexDir = mkDirsIfNeeded("indexes/" +
+      "${object {}.javaClass.packageName}/indexerOut")
+  if (!indexDir.exists() && !indexDir.mkdir())
+    throw RuntimeException("$indexDir doesn't exist and mkdir failed")
+
+  ("Usage: java " + Indexer::class.java.name
+      + " <index dir> <data dir>")
+  val start = System.currentTimeMillis()
+  val indexer = Indexer(dataDir, indexDir)
+  val numIndexed: Int = try {
+    indexer.index(Indexer.TextFilesFilter())
+  }
+  finally {
+    indexer.close()
+  }
+  val end = System.currentTimeMillis()
+  println(
+    "Indexing " + numIndexed + " files took "
+        + (end - start) + " milliseconds"
+  )
 }
