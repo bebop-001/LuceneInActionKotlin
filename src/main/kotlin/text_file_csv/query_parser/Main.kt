@@ -61,7 +61,7 @@ fun main(args: Array<String>) {
     // Update the index if necessary or if user wants to.
     var updateIndex : Boolean? = null
     if (!Common.INDEX_DIR.exists()) {
-        updateIndex = false
+        updateIndex = true
     }
     else {
         while(updateIndex == null) {
