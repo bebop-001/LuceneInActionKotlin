@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package Chapter_02.lia.indexing
 
 import org.apache.lucene.analysis.Analyzer
@@ -8,6 +10,7 @@ import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
 import org.apache.lucene.document.NumericField
 import org.apache.lucene.index.IndexWriter
+import org.apache.lucene.index.IndexWriterConfig
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
 import java.io.IOException
@@ -52,9 +55,7 @@ internal class Fragments {
         // START
         val ramDir: Directory = RAMDirectory()
         val writer = IndexWriter(
-            ramDir, analyzer,
-            IndexWriter.MaxFieldLength.UNLIMITED
-        )
+            ramDir, IndexWriterConfig(LUCENE_VERSION, analyzer))
         // END
     }
 
@@ -75,10 +76,7 @@ internal class Fragments {
 
         // START
         val writer = IndexWriter(
-            otherDir, analyzer,
-            IndexWriter.MaxFieldLength.UNLIMITED
-        )
-        writer.addIndexesNoOptimize(*arrayOf(ramDir))
+            otherDir, IndexWriterConfig(LUCENE_VERSION, analyzer))
         // END
     }
 
@@ -86,8 +84,8 @@ internal class Fragments {
     fun docBoostMethod() {
         val dir: Directory = RAMDirectory()
         val writer = IndexWriter(dir,
-            StandardAnalyzer(LUCENE_VERSION),
-            IndexWriter.MaxFieldLength.UNLIMITED)
+            IndexWriterConfig(LUCENE_VERSION, StandardAnalyzer(LUCENE_VERSION)
+        ))
 
         // START
         val doc = Document()
@@ -194,8 +192,7 @@ internal class Fragments {
         val analyzer: Analyzer? = null
         // START
         val writer = IndexWriter(
-            dir, analyzer,
-            true, IndexWriter.MaxFieldLength.UNLIMITED
+            dir, IndexWriterConfig(LUCENE_VERSION, analyzer)
         )
         writer.infoStream = System.out
         // END
@@ -255,8 +252,7 @@ internal class Fragments {
             // END
         }
 
-        private val senderDomain = "example.com"
-            get() = field
+        private const val senderDomain = "example.com"
         const val BAD_DOMAIN = "yucky-domain.com"
     }
 }
