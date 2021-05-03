@@ -19,11 +19,37 @@ package text_file_csv.query_parser
 
 import org.apache.lucene.util.Version
 import java.io.File
+import java.lang.RuntimeException
 
-// this is our test data created from the data/*.txt.
-// Key is the name of the data file and the list contains
-// contents of the file chopped into lines of max 80 characters.
-val chunkedTextFiles = mutableMapOf<String, MutableList<String>>()
+
+fun mkDirs(dir: File) {
+    val dirs = dir.toString().split("/").filter { it.isNotEmpty() }.toMutableList()
+    var toMake = ""
+    while (dirs.size > 0) {
+        toMake = "$toMake/${dirs[0]}"
+        val f = File(toMake)
+        if (!f.exists() && !f.mkdir()) {
+            throw RuntimeException("mkdir:mkdir($f) FAILED")
+        }
+        dirs.removeAt(0)
+    }
+}
+
+fun rmDirsAndFiles(root: File) {
+    if (root.exists()) {
+        if (root.isDirectory) {
+            root.list()?.forEach { file ->
+                val f = File(root, file)
+                when {
+                    f.isDirectory -> rmDirsAndFiles(f)
+                    f.isFile -> f.delete()
+                    else -> throw RuntimeException("recurRm:Unknown file type: $f")
+                }
+            }
+            root.delete()
+        }
+    }
+}
 
 object Common {
     val LUCENE_VERSION = Version.LUCENE_36

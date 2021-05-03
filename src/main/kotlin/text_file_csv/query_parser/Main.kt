@@ -19,23 +19,62 @@ import java.lang.RuntimeException
 import kotlin.system.exitProcess
 
 var EXAMINE = false
-private val USAGE = """USAGE: CsvSearch --examine
-    |Search a csv file created from text files supplied with
-    |the LucineInAction software for a term.  Search is interactive.
-    |  --examine : turn on examine for search results.
-""".trimMargin()
+private const val USAGE = """USAGE: --examine [--simple|--standard|--|--white_space"]
+    Search a csv file created from text files supplied with
+    the LucineInAction software for a term.  Search is interactive.
+    You must select an analyzer type.
+    --simple      Use SimpleAnalyzer
+    --standard    Use StandardAnalyzer
+    --white_space Use WhiteSpaceAnalyzerCsvSearch --examine
+    
+    --examine : turn on examine for search results.
+"""
+private const val searcherWildcardHelp = """
+    Boolean Operators: 
+        AND, OR, NOT, () are supported
+    Wildcards: 
+        Can not begin a query.
+        "?": 1 of ane character, "*": 0 or more of any character
+    Proximity:  "word_1 word_2"~N\" where N is word count between
+        words.
+    Similarity:
+        word~N  where N is a value between 0.0 and 1.0.
+        word~   N defaults to 0.5.
+"""
 
 fun main(args: Array<String>) {
-    if (args.size > 0) {
-        args.forEach { arg ->
-            when {
-                arg == "--examine" -> EXAMINE = true
-                else -> throw RuntimeException(
-                    "$USAGE\nUnrecognized argument:\"$arg"
-                )
-            }
+    var at : AnalyzerType? = null
+    args.forEach { arg ->
+        when (arg) {
+            "--simple" -> at = if (at != null) throw RuntimeException("at already set as $at")
+            else AnalyzerType.simple
+            "--standard" -> at = if (at != null) throw RuntimeException("at already set as $at")
+            else AnalyzerType.standard
+            "--white_space" -> at = if (at != null) throw RuntimeException("at already set as $at")
+            else AnalyzerType.white_space
+            "--examine" -> EXAMINE = true
+            else -> throw RuntimeException("$USAGE: Unrecognized analyzer:${arg}")
         }
     }
+    if (at == null)
+        throw RuntimeException("$USAGE\nAnalyzer type must be selected.")
+    // Update the index if necessary or if user wants to.
+    var updateIndex : Boolean? = null
+    if (!Common.INDEX_DIR.exists()) {
+        updateIndex = false
+    }
+    else {
+        while(updateIndex == null) {
+            print("Update index? (y/n) > ")
+            val update = readLine()!!.trim()
+            if ("^\\s*[yY]\\s*$".toRegex().matches(update))
+                updateIndex = true
+            else if ("^\\s*[Nn]\\s*$".toRegex().matches(update))
+                updateIndex = false
+        }
+    }
+    if (updateIndex) CsvIndexer(at!!, Common.INDEX_DIR)
+    println(searcherWildcardHelp)
     var query = ""
     while (query != "q") {
         print("Enter query or \"q\" to quit. > ")
@@ -56,9 +95,9 @@ fun main(args: Array<String>) {
             // build a map of maps for the results.  Hse this both to store
             // and to detect matches when filtering the .csv file of the
             // data.
-            val rvMap = mutableMapOf<String, MutableMap<Int, String>>();
+            val rvMap = mutableMapOf<String, MutableMap<Int, String>>()
             matches.map { pair ->
-                val fName = pair.first;
+                val fName = pair.first
                 val lineNumber = pair.second
                 if (rvMap[fName] == null) rvMap[fName] = mutableMapOf()
                 rvMap[fName]!![lineNumber] = ""
@@ -83,8 +122,8 @@ fun main(args: Array<String>) {
             }
         }
         else {
-            // an error occured.
-            println(results.first)
+            // an error occurred.
+            println("${results.first}\n$searcherWildcardHelp\n")
         }
     }
 }

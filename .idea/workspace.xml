@@ -4,15 +4,12 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Tweaked USAGE statement.">
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" afterDir="false" />
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Lint: removed un-needed suppress.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Indexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/index_by_line/SimpleTermQuery.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_02/lia/indexing/Fragments.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_02/lia/indexing/Fragments.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
     </file-type-list>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedIndex" value="3" />
+    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1rG1Toh1SvUmPT6d2TxE61p9598" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -65,7 +62,7 @@
     <property name="project.structure.side.proportion" value="0.29565218" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Kotlin" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -150,6 +147,7 @@
     <configuration name="csv_search" type="JetRunConfigurationType">
       <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.MainKt" />
       <module name="scratch" />
+      <option name="PROGRAM_PARAMETERS" value="--standard" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -417,7 +415,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619976102610</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="Lint: removed un-needed suppress.">
+      <created>1619981174327</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1619981174327</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -456,7 +461,8 @@
     <MESSAGE value="lint" />
     <MESSAGE value="Move main to top level." />
     <MESSAGE value="Tweaked USAGE statement." />
-    <option name="LAST_COMMIT_MESSAGE" value="Tweaked USAGE statement." />
+    <MESSAGE value="Lint: removed un-needed suppress." />
+    <option name="LAST_COMMIT_MESSAGE" value="Lint: removed un-needed suppress." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
