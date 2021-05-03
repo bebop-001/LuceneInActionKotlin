@@ -38,7 +38,6 @@ private fun Document._add(field: Fieldable): Document {
 }
 
 
-enum class AnalyzerType { simple, white_space, standard }
 class CsvIndexer(at: AnalyzerType, val indexDir: File) {
     private val analyzer = when (at) {
         AnalyzerType.simple -> SimpleAnalyzer(LUCENE_VERSION)

@@ -51,6 +51,7 @@ fun rmDirsAndFiles(root: File) {
     }
 }
 
+enum class AnalyzerType { simple, white_space, standard }
 object Common {
     val LUCENE_VERSION = Version.LUCENE_36
 

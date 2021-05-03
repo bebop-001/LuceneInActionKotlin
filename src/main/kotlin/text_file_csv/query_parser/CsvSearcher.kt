@@ -16,28 +16,33 @@
 
 package text_file_csv.query_parser
 
+import org.apache.lucene.analysis.SimpleAnalyzer
+import org.apache.lucene.analysis.WhitespaceAnalyzer
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.search.*
 import org.apache.lucene.store.FSDirectory
+import java.io.File
 
-object CsvSearcher {
+
+class CsvSearcher(at: AnalyzerType, val indexDir: File) {
+    private val analyzer = when (at) {
+        AnalyzerType.simple -> SimpleAnalyzer(Common.LUCENE_VERSION)
+        AnalyzerType.standard -> StandardAnalyzer(Common.LUCENE_VERSION)
+        AnalyzerType.white_space -> WhitespaceAnalyzer(Common.LUCENE_VERSION)
+    }
     // on fail, string will be set and list will be null.
     // on success, string is null and list is set.
     fun search(queryString:String) : Pair<String?, List<Pair<String, Int>>?> {
         var rv : Pair<String?, List<Pair<String, Int>>?>
         try {
             val indexReader = IndexReader.open(
-                FSDirectory.open(Common.INDEX_DIR)
+                FSDirectory.open(indexDir)
             )
             val indexSearcher = IndexSearcher(indexReader)
             val parser = QueryParser(
-                Common.LUCENE_VERSION, "text",
-                StandardAnalyzer( //4
-                    Common.LUCENE_VERSION
-                )
-            )
+                Common.LUCENE_VERSION, "text",analyzer)
             val query = parser.parse(queryString)
             println("Query String: <$queryString>, Query:<$query>")
             val matches = mutableListOf<Pair<String, Int>>()

@@ -4,11 +4,11 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Lint: removed un-needed suppress.">
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Lint">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_02/lia/indexing/Fragments.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_02/lia/indexing/Fragments.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,9 +37,6 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedIndex" value="2" />
   </component>
   <component name="ProjectId" id="1rG1Toh1SvUmPT6d2TxE61p9598" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -144,7 +141,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="csv_search" type="JetRunConfigurationType">
+    <configuration name="csv_search" type="JetRunConfigurationType" temporary="true">
       <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.MainKt" />
       <module name="scratch" />
       <option name="PROGRAM_PARAMETERS" value="--standard" />
@@ -164,6 +161,7 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Kotlin.csv_search" />
         <item itemvalue="Application.VerboseIndexing" />
       </list>
     </recent_temporary>
@@ -171,258 +169,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="" />
-      <created>1618587630424</created>
+      <changelist id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Lint" />
+      <created>1620004920199</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1618587630424</updated>
+      <updated>1620004920199</updated>
     </task>
-    <task id="LOCAL-00001" summary="Initial java version.">
-      <created>1618592132193</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1618592132193</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Lint.">
-      <created>1618595422356</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1618595422356</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Lint.">
-      <created>1618601296220</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1618601296220</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Kotlinize">
-      <created>1618601326514</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1618601326514</updated>
-    </task>
-    <task id="LOCAL-00005" summary="rename variable.">
-      <created>1618601766521</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1618601766521</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Kotlin-ize">
-      <created>1618929093668</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1618929093668</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Kotlin-ize">
-      <created>1618930464946</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1618930464946</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Kotlin-ize">
-      <created>1618931421048</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1618931421048</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Kotlin-ize">
-      <created>1618931606342</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1618931606342</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Kotlin-ize">
-      <created>1618931748462</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1618931748462</updated>
-    </task>
-    <task id="LOCAL-00011" summary="lint">
-      <created>1618932148867</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1618932148867</updated>
-    </task>
-    <task id="LOCAL-00012" summary="lint">
-      <created>1618944923071</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1618944923071</updated>
-    </task>
-    <task id="LOCAL-00013" summary="lint">
-      <created>1618945112846</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1618945112846</updated>
-    </task>
-    <task id="LOCAL-00014" summary="lint">
-      <created>1618945464417</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1618945464417</updated>
-    </task>
-    <task id="LOCAL-00015" summary="changed lucene version to target 3.6 specificly.">
-      <created>1618951482347</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1618951482347</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Changed output indexes structure.">
-      <created>1619023381236</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1619023381236</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Force remove of index on run for testing.">
-      <created>1619042183248</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1619042183248</updated>
-    </task>
-    <task id="LOCAL-00018" summary="lint">
-      <created>1619042385736</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1619042385736</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Replace if... with when.">
-      <created>1619042574015</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1619042574015</updated>
-    </task>
-    <task id="LOCAL-00020" summary="initial">
-      <created>1619108518888</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1619108518888</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Split text file at ' '.  lines now max 80 chars.">
-      <created>1619115032687</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1619115032687</updated>
-    </task>
-    <task id="LOCAL-00022" summary="bad import.">
-      <created>1619124919989</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1619124919989</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Hardcoded path to index.  Made term selection interactive.">
-      <created>1619390320699</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1619390320699</updated>
-    </task>
-    <task id="LOCAL-00024" summary="lint">
-      <created>1619390604410</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1619390604410</updated>
-    </task>
-    <task id="LOCAL-00025" summary="Checkpoint.  Code not working.">
-      <created>1619463605242</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1619463605242</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Works but still can't get filename/index.">
-      <created>1619467377783</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1619467377783</updated>
-    </task>
-    <task id="LOCAL-00027" summary="moved main into its own file.">
-      <created>1619468555441</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1619468555441</updated>
-    </task>
-    <task id="LOCAL-00028" summary="search is sort-of working.">
-      <created>1619500113029</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1619500113029</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Changed an error message and variable name.">
-      <created>1619541225060</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1619541225060</updated>
-    </task>
-    <task id="LOCAL-00030" summary="cleanup. searcher analyzer type is now selectable.  Indexer explane can be turned on/off.">
-      <created>1619903817246</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1619903817246</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Added usage to main.  Updated readme.">
-      <created>1619924898160</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1619924898160</updated>
-    </task>
-    <task id="LOCAL-00032" summary="lint">
-      <created>1619925066457</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1619925066457</updated>
-    </task>
-    <task id="LOCAL-00033" summary="Move main to top level.">
-      <created>1619974989632</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1619974989632</updated>
-    </task>
-    <task id="LOCAL-00034" summary="Tweaked USAGE statement.">
-      <created>1619976102610</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1619976102610</updated>
-    </task>
-    <task id="LOCAL-00035" summary="Lint: removed un-needed suppress.">
-      <created>1619981174327</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1619981174327</updated>
-    </task>
-    <option name="localTasksCounter" value="36" />
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -462,14 +215,15 @@
     <MESSAGE value="Move main to top level." />
     <MESSAGE value="Tweaked USAGE statement." />
     <MESSAGE value="Lint: removed un-needed suppress." />
-    <option name="LAST_COMMIT_MESSAGE" value="Lint: removed un-needed suppress." />
+    <MESSAGE value="Lint" />
+    <option name="LAST_COMMIT_MESSAGE" value="Lint" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
-          <line>131</line>
+          <line>130</line>
           <properties>
             <option name="lambda-ordinal" value="-1" />
           </properties>
@@ -478,18 +232,13 @@
         <line-breakpoint enabled="true" type="kotlin-line">
           <condition expression="text.length == 1" language="kotlin" />
           <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
-          <line>121</line>
+          <line>120</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_03/BasicSearchingTest.kt</url>
           <line>30</line>
           <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt</url>
-          <line>85</line>
-          <option name="timeStamp" value="106" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Searcher.kt</url>

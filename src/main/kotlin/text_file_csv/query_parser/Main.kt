@@ -83,7 +83,8 @@ fun main(args: Array<String>) {
             println("bye...")
             exitProcess(0)
         }
-        val results : Pair<String?, List<Pair<String, Int>>?> = CsvSearcher.search(query)
+        val results : Pair<String?, List<Pair<String, Int>>?> =
+            CsvSearcher(at!!, Common.INDEX_DIR).search(query)
         if (results.first == null) {
             val matches = results.second!!
             println("${matches.size} Results:$matches")
