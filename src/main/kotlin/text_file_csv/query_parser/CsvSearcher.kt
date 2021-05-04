@@ -19,6 +19,7 @@ package text_file_csv.query_parser
 import org.apache.lucene.analysis.SimpleAnalyzer
 import org.apache.lucene.analysis.WhitespaceAnalyzer
 import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.document.Document
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.queryParser.QueryParser
 import org.apache.lucene.search.*
@@ -50,9 +51,10 @@ class CsvSearcher(at: AnalyzerType, val indexDir: File) {
                 query, 200
             )
             topDocs.scoreDocs.forEachIndexed { idx, scoreDoc ->
-                val doc = indexSearcher.doc(scoreDoc.doc)
-                val lineNumber = doc.get("line_number").toInt()
-                val fName = doc.get("file_name")
+                val docId :Int = scoreDoc.doc
+                val document: Document = indexSearcher.doc(docId)
+                val lineNumber = document.get("line_number").toInt()
+                val fName = document.get("file_name")
                 matches.add(Pair(fName, lineNumber))
                 if (EXAMINE) {
                     println("$idx $fName $lineNumber ---------------")
