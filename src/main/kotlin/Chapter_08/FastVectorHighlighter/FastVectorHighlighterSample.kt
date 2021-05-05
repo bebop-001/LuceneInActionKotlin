@@ -66,11 +66,11 @@ private val highlighter: FastVectorHighlighter
         )
     }
 
-private val DOCS = arrayOf( // #A
-    "the quick brown fox jumps over the lazy dog",  // #A
-    "the quick gold fox jumped over the lazy black dog",  // #A
-    "the quick fox jumps over the black dog",  // #A
-    "the red fox jumped over the lazy dark gray dog" // #A
+private val sampleInputDocs = arrayOf(
+    "the quick brown fox jumps over the lazy dog",
+    "the quick gold fox jumped over the lazy black dog",
+    "the quick fox jumps over the black dog",
+    "the red fox jumped over the lazy dark gray dog"
 )
 private const val QUERY = "quick OR fox OR \"lazy dog\"~1" // #B
 private const val fieldName = "f"
@@ -78,16 +78,10 @@ private var analyzer: Analyzer = StandardAnalyzer(Version.LUCENE_30)
 
 private val sampleOutputFile = File(System.getenv("PWD"), "data/FastVectorHighlighterSample.html")
 
-fun main(args: Array<String>) {
-    makeIndex()
-    searchIndex(sampleOutputFile)
-    println("output saved to html file:$sampleOutputFile")
-}
-
 @Throws(IOException::class)
 fun makeIndex() {
     val w = writer
-    for (d in DOCS) {
+    for (d in sampleInputDocs) {
         val doc = Document()
         doc.add(
             Field(
@@ -101,18 +95,18 @@ fun makeIndex() {
 }
 
 @Throws(Exception::class)
-fun searchIndex(sampleFile: File) {
+fun searchIndex() {
     val parser = QueryParser(
         Version.LUCENE_30,
         fieldName, analyzer
     )
     val query = parser.parse(QUERY)
-    val highlighter = highlighter // #C
-    val fieldQuery = highlighter.getFieldQuery(query) // #D
+    val highlighter = highlighter
+    val fieldQuery = highlighter.getFieldQuery(query)
     val indexReader = IndexReader.open(dir)
     val searcher = IndexSearcher(indexReader)
     val docs = searcher.search(query, 10)
-    val highlightedHtmlWriter = FileWriter(sampleFile)
+    val highlightedHtmlWriter = FileWriter(sampleOutputFile)
     highlightedHtmlWriter.write("<html>")
     highlightedHtmlWriter.write("<body>")
     highlightedHtmlWriter.write("<p>QUERY : $QUERY</p>")
@@ -129,4 +123,10 @@ fun searchIndex(sampleFile: File) {
     highlightedHtmlWriter.close()
     searcher.close()
     indexReader.close()
+}
+
+fun main(args: Array<String>) {
+    makeIndex()
+    searchIndex()
+    println("output saved to html file:$sampleOutputFile")
 }
