@@ -26,6 +26,7 @@ import org.apache.lucene.search.vectorhighlight.ScoreOrderFragmentsBuilder
 import org.apache.lucene.search.vectorhighlight.BaseFragmentsBuilder
 import org.apache.lucene.store.Directory
 import org.apache.lucene.util.Version
+import java.io.File
 import java.lang.Exception
 
 /**
@@ -56,12 +57,11 @@ object FastVectorHighlighterSample {
     @Throws(Exception::class)
     @JvmStatic
     fun main(args: Array<String>) {
-        if (args.size != 1) {
-            System.err.println("Usage: FastVectorHighlighterSample <filename>")
-            System.exit(-1)
-        }
+        val sampleFile = File(System.getenv("PWD"),"data/FastVectorHighlighterSample.html")
+
         makeIndex()
-        searchIndex(args[0])
+        searchIndex(sampleFile)
+        println("output saved to html file:$sampleFile")
     }
 
     @Throws(IOException::class)
@@ -84,7 +84,7 @@ object FastVectorHighlighterSample {
     }
 
     @Throws(Exception::class)
-    fun searchIndex(filename: String?) {
+    fun searchIndex(sampleFile:File) {
         val parser = QueryParser(
             Version.LUCENE_30,
             F, analyzer
@@ -94,7 +94,7 @@ object FastVectorHighlighterSample {
         val fieldQuery = highlighter.getFieldQuery(query) // #D
         val searcher = IndexSearcher(dir)
         val docs = searcher.search(query, 10)
-        val writer = FileWriter(filename)
+        val writer = FileWriter(sampleFile)
         writer.write("<html>")
         writer.write("<body>")
         writer.write("<p>QUERY : " + QUERY + "</p>")
