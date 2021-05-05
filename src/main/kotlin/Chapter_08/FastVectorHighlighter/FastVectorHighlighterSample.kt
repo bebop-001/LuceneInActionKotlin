@@ -46,14 +46,8 @@ import org.apache.lucene.util.Version
 // From chapter 8
 private val LUCENE_VERSION = Version.LUCENE_36
 var dir: Directory = RAMDirectory()
-private val writer: IndexWriter = IndexWriter(
-    dir,  //3
-    IndexWriterConfig(
-        LUCENE_VERSION,
-        StandardAnalyzer(LUCENE_VERSION)
-    )
-)
-private val highlighter: FastVectorHighlighter
+
+private val vectorHighlighter: FastVectorHighlighter
     get() {
         val fragListBuilder: FragListBuilder = SimpleFragListBuilder()
         val fragmentBuilder: FragmentsBuilder =
@@ -74,16 +68,19 @@ val inputDocsMapped : Map<Int, String> = arrayOf(
     "the red fox jumped over the lazy dark gray dog"
 ).mapIndexed{i , s -> i to s}.toMap()
 
-private const val QUERY = "quick OR fox OR \"lazy dog\"~1" // #B
+private const val QUERY_TEXT = "quick OR fox OR \"lazy dog\"~1" // #B
 private const val textfieldName = "snippet"
 private const val indexFieldName = "idx"
-private var analyzer: Analyzer = StandardAnalyzer(Version.LUCENE_30)
+private var ANALYZER: Analyzer = StandardAnalyzer(LUCENE_VERSION)
 
 private val sampleOutputFile = File(System.getenv("PWD"), "data/FastVectorHighlighterSample.html")
 
 @Throws(IOException::class)
 fun makeIndex() {
-    val w = writer
+    sampleOutputFile.delete()
+    val indexWriter: IndexWriter = IndexWriter(
+        dir, IndexWriterConfig(LUCENE_VERSION, ANALYZER)
+    )
     inputDocsMapped.keys.forEach{key ->
         val doc = Document()
         doc.add(
@@ -99,45 +96,55 @@ fun makeIndex() {
             )
             .setIntValue(key)
         )
-        w.addDocument(doc)
+        indexWriter.addDocument(doc)
     }
-    w.close()
+    indexWriter.close()
 }
 
 @Throws(Exception::class)
 fun searchIndex() {
     val parser = QueryParser(
         Version.LUCENE_30,
-        textfieldName, analyzer
+        textfieldName, ANALYZER
     )
-    val query = parser.parse(QUERY)
-    val highlighter = highlighter
+    val query = parser.parse(QUERY_TEXT)
+    val highlighter = vectorHighlighter
     val fieldQuery = highlighter.getFieldQuery(query)
     val indexReader = IndexReader.open(dir)
     val searcher = IndexSearcher(indexReader)
     val docs = searcher.search(query, 10)
+    if (docs.scoreDocs.size == 0) {
+        println("No matches found.")
+        return
+    }
     val highlightedHtmlWriter = FileWriter(sampleOutputFile)
-    highlightedHtmlWriter.write("<html>")
-    highlightedHtmlWriter.write("<body>")
-    highlightedHtmlWriter.write("<p>text query string = &lt;$QUERY&gt;</p>\n")
-    highlightedHtmlWriter.write("<p>resultant lucene query = &lt;$query&gt;</p>")
+    highlightedHtmlWriter.write("<html>\n")
+    highlightedHtmlWriter.write("<body>\n")
+    highlightedHtmlWriter.write("<p>text query string = &lt;$QUERY_TEXT&gt;</p>\n")
+    highlightedHtmlWriter.write("<p>resultant lucene query = &lt;$query&gt;</p>\n")
     for (scoreDoc in docs.scoreDocs) {
         val docId:Int = scoreDoc.doc
         val document: Document = searcher.doc(docId)
         val snippet = highlighter.getBestFragment( // #E
             fieldQuery, searcher.indexReader,  // #E
             docId, textfieldName, 100
-        ) // #E
+        )
         if (snippet != null) {
-            val idx = document.get("idx")
+            val idxField = document.get("idx")
+            val textField = document.getFieldable(textfieldName)
+            val snippetHtml = snippet
+                .replace("<", "&lt;")
+                .replace(">", "&gt;")
             highlightedHtmlWriter.write(
-                "$indexFieldName = $idx, " +
-                    "scoreDoc.doc = ${scoreDoc.doc}, " +
-                    "$textfieldName = \"$snippet<br/>\n"
+            "$indexFieldName = $idxField, " +
+                "scoreDoc.doc = ${scoreDoc.doc}, " +
+                "$textfieldName fieldable = &lt;$textField&gt;<br>\n" +
+                "snippet = \"$snippet\", " +
+                "snippetHtml = \"$snippetHtml\"<br/><br/>\n"
             )
         }
     }
-    highlightedHtmlWriter.write("</body></html>")
+    highlightedHtmlWriter.write("</body>\n</html>\n")
     highlightedHtmlWriter.close()
     searcher.close()
     indexReader.close()
