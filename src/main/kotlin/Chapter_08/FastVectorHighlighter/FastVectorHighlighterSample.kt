@@ -27,6 +27,7 @@ import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
 import org.apache.lucene.document.Field.TermVector
+import org.apache.lucene.document.NumericField
 import org.apache.lucene.index.IndexReader
 import org.apache.lucene.index.IndexWriter
 import org.apache.lucene.index.IndexWriterConfig
@@ -66,14 +67,16 @@ private val highlighter: FastVectorHighlighter
         )
     }
 
-private val sampleInputDocs = arrayOf(
+val inputDocsMapped : Map<Int, String> = arrayOf(
     "the quick brown fox jumps over the lazy dog",
     "the quick gold fox jumped over the lazy black dog",
     "the quick fox jumps over the black dog",
     "the red fox jumped over the lazy dark gray dog"
-)
+).mapIndexed{i , s -> i to s}.toMap()
+
 private const val QUERY = "quick OR fox OR \"lazy dog\"~1" // #B
-private const val fieldName = "f"
+private const val textfieldName = "snippet"
+private const val indexFieldName = "idx"
 private var analyzer: Analyzer = StandardAnalyzer(Version.LUCENE_30)
 
 private val sampleOutputFile = File(System.getenv("PWD"), "data/FastVectorHighlighterSample.html")
@@ -81,13 +84,20 @@ private val sampleOutputFile = File(System.getenv("PWD"), "data/FastVectorHighli
 @Throws(IOException::class)
 fun makeIndex() {
     val w = writer
-    for (d in sampleInputDocs) {
+    inputDocsMapped.keys.forEach{key ->
         val doc = Document()
         doc.add(
             Field(
-                fieldName, d, Field.Store.YES, Field.Index.ANALYZED,
+                textfieldName, inputDocsMapped[key], Field.Store.YES, Field.Index.ANALYZED,
                 TermVector.WITH_POSITIONS_OFFSETS
             )
+        )
+        doc.add(
+            NumericField(
+                indexFieldName, Field.Store.YES,
+                false
+            )
+            .setIntValue(key)
         )
         w.addDocument(doc)
     }
@@ -98,7 +108,7 @@ fun makeIndex() {
 fun searchIndex() {
     val parser = QueryParser(
         Version.LUCENE_30,
-        fieldName, analyzer
+        textfieldName, analyzer
     )
     val query = parser.parse(QUERY)
     val highlighter = highlighter
@@ -109,14 +119,22 @@ fun searchIndex() {
     val highlightedHtmlWriter = FileWriter(sampleOutputFile)
     highlightedHtmlWriter.write("<html>")
     highlightedHtmlWriter.write("<body>")
-    highlightedHtmlWriter.write("<p>QUERY : $QUERY</p>")
+    highlightedHtmlWriter.write("<p>text query string = &lt;$QUERY&gt;</p>\n")
+    highlightedHtmlWriter.write("<p>resultant lucene query = &lt;$query&gt;</p>")
     for (scoreDoc in docs.scoreDocs) {
+        val docId:Int = scoreDoc.doc
+        val document: Document = searcher.doc(docId)
         val snippet = highlighter.getBestFragment( // #E
             fieldQuery, searcher.indexReader,  // #E
-            scoreDoc.doc, fieldName, 100
+            docId, textfieldName, 100
         ) // #E
         if (snippet != null) {
-            highlightedHtmlWriter.write(scoreDoc.doc.toString() + " : " + snippet + "<br/>")
+            val idx = document.get("idx")
+            highlightedHtmlWriter.write(
+                "$indexFieldName = $idx, " +
+                    "scoreDoc.doc = ${scoreDoc.doc}, " +
+                    "$textfieldName = \"$snippet<br/>\n"
+            )
         }
     }
     highlightedHtmlWriter.write("</body></html>")
