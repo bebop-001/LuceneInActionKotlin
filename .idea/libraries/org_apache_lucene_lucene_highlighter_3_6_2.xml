@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="org.apache.lucene:lucene-highlighter:3.6.2" type="repository">
+    <properties maven-id="org.apache.lucene:lucene-highlighter:3.6.2" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-highlighter/3.6.2/lucene-highlighter-3.6.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/3.6.2/lucene-core-3.6.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-memory/3.6.2/lucene-memory-3.6.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-queries/3.6.2/lucene-queries-3.6.2.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/jakarta-regexp/jakarta-regexp/1.4/jakarta-regexp-1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-highlighter/3.6.2/lucene-highlighter-3.6.2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-core/3.6.2/lucene-core-3.6.2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-memory/3.6.2/lucene-memory-3.6.2-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/lucene/lucene-queries/3.6.2/lucene-queries-3.6.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
