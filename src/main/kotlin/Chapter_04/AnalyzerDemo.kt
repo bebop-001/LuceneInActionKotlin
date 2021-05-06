@@ -37,7 +37,7 @@ object AnalyzerDemo {
     ) //A
 
     private val examples = arrayOf(
-        "The quick brown fox jumped over the lazy dog",
+        "The quick brown fox jumped over the 5 lazy dogs.",
         "XY&Z Corporation - xyz@example.com"
     )
     private val analyzers = arrayOf<Analyzer>(
@@ -56,7 +56,7 @@ object AnalyzerDemo {
     }
     @JvmStatic
     fun main(args: Array<String>) {
-        val strings =   if (args.size > 0) args
+        val strings =   if (args.isNotEmpty()) args
                         else examples
         strings.forEach{text -> analyze(text) }
     }
