@@ -15,55 +15,49 @@
  * Adapted from code which first appeared in a java.net article
  * written by Erik
  */
-*/
-package Chapter_04;
+package Chapter_04
 
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.StopAnalyzer;
-import org.apache.lucene.analysis.SimpleAnalyzer;
-import org.apache.lucene.analysis.WhitespaceAnalyzer;
-import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.util.Version;
-import java.io.IOException;
+import Chapter_04.AnalyzerUtils.displayTokens
+import org.apache.lucene.analysis.WhitespaceAnalyzer
+import org.apache.lucene.analysis.SimpleAnalyzer
+import org.apache.lucene.analysis.StopAnalyzer
+import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.analysis.Analyzer
+import org.apache.lucene.util.Version
+import java.io.StringReader
 
-// From chapter 4
+// From chapter 4.01
+object AnalyzerDemo {
+    private val LUCENE_VERSION = Version.LUCENE_36
+    private fun displayTokens(
+        analyzer: Analyzer,
+        text: String
+    ) = displayTokens(analyzer.tokenStream(
+        "contents", StringReader(text))
+    ) //A
 
-public class AnalyzerDemo {
-  private static final String[] examples = {
-    "The quick brown fox jumped over the lazy dog",
-    "XY&Z Corporation - xyz@example.com"
-  };
-
-  private static final Analyzer[] analyzers = new Analyzer[] { 
-    new WhitespaceAnalyzer(),
-    new SimpleAnalyzer(),
-    new StopAnalyzer(Version.LUCENE_30),
-    new StandardAnalyzer(Version.LUCENE_30)
-  };
-
-  public static void main(String[] args) throws IOException {
-
-    String[] strings = examples;
-    if (args.length > 0) {    // A
-      strings = args;
+    private val examples = arrayOf(
+        "The quick brown fox jumped over the lazy dog",
+        "XY&Z Corporation - xyz@example.com"
+    )
+    private val analyzers = arrayOf<Analyzer>(
+        WhitespaceAnalyzer(LUCENE_VERSION),
+        SimpleAnalyzer(LUCENE_VERSION),
+        StopAnalyzer(LUCENE_VERSION),
+        StandardAnalyzer(LUCENE_VERSION)
+    )
+    private fun analyze(text: String) {
+        println("Analyzing \"$text\"")
+        for (analyzer in analyzers) {
+            println("${analyzer.javaClass.simpleName}\n    ")
+            displayTokens(analyzer, text) // B
+            println("\n")
+        }
     }
-
-    for (String text : strings) {
-      analyze(text);
+    @JvmStatic
+    fun main(args: Array<String>) {
+        val strings =   if (args.size > 0) args
+                        else examples
+        strings.forEach{text -> analyze(text) }
     }
-  }
-
-  private static void analyze(String text) throws IOException {
-    System.out.println("Analyzing \"" + text + "\"");
-    for (Analyzer analyzer : analyzers) {
-      String name = analyzer.getClass().getSimpleName();
-      System.out.println("  " + name + ":");
-      System.out.print("    ");
-      AnalyzerUtils.displayTokens(analyzer, text); // B
-      System.out.println("\n");
-    }
-  }
 }
-
-// #A Analyze command-line strings, if specified
-// #B Real work done in here
