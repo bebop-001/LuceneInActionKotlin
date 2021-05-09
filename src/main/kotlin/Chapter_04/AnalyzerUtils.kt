@@ -1,3 +1,4 @@
+@file:Suppress("unused")
 /*
  * Copyright Manning Publications Co.
  *
@@ -12,40 +13,29 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific lan      
 */
+
 package Chapter_04
 
-import kotlin.Throws
-import java.io.IOException
 import junit.framework.Assert
 import org.apache.lucene.analysis.Analyzer
-import org.apache.lucene.analysis.tokenattributes.TermAttribute
 import org.apache.lucene.util.AttributeSource
-import org.apache.lucene.analysis.tokenattributes.PositionIncrementAttribute
-import org.apache.lucene.analysis.tokenattributes.TypeAttribute
-import org.apache.lucene.analysis.tokenattributes.OffsetAttribute
-import kotlin.jvm.JvmStatic
 import org.apache.lucene.analysis.SimpleAnalyzer
 import org.apache.lucene.analysis.TokenStream
 import org.apache.lucene.analysis.standard.StandardAnalyzer
+import org.apache.lucene.analysis.tokenattributes.*
 import org.apache.lucene.util.Version
 import java.io.StringReader
-import java.lang.Exception
 
+private val LUCENE_VERSION = Version.LUCENE_36
 // From chapter 4
-internal object AnalyzerUtils {
-    @Throws(IOException::class)
-    fun displayTokens(
-        analyzer: Analyzer,
-        text: String?
-    ) {
+object AnalyzerUtils {
+    fun displayTokens(analyzer: Analyzer, text: String) =
         displayTokens(analyzer.tokenStream("contents", StringReader(text))) //A
-    }
 
-    @Throws(IOException::class)
     fun displayTokens(stream: TokenStream) {
-        val term = stream.addAttribute(TermAttribute::class.java)
+        val term = stream.addAttribute(CharTermAttribute::class.java)
         while (stream.incrementToken()) {
-            print("[" + term.term() + "] ") //B
+            print("[$term] ") //B
         }
     }
 
@@ -54,10 +44,8 @@ internal object AnalyzerUtils {
     #B Print token text surrounded by brackets
   */
     fun getPositionIncrement(source: AttributeSource): Int {
-        val attr = source.addAttribute(
-            PositionIncrementAttribute::class.java
-        )
-        return attr.positionIncrement
+        return source.addAttribute(PositionIncrementAttribute::class.java)
+                .positionIncrement
     }
 
     fun getTerm(source: AttributeSource): String {
@@ -77,18 +65,17 @@ internal object AnalyzerUtils {
         attr.positionIncrement = posIncr
     }
 
-    fun setTerm(source: AttributeSource, term: String?) {
+    fun setTerm(source: AttributeSource, term: String) {
         val attr = source.addAttribute(TermAttribute::class.java)
         attr.setTermBuffer(term)
     }
 
-    fun setType(source: AttributeSource, type: String?) {
+    fun setType(source: AttributeSource, type: String) {
         val attr = source.addAttribute(TypeAttribute::class.java)
         attr.setType(type)
     }
 
-    @Throws(IOException::class)
-    fun displayTokensWithPositions(analyzer: Analyzer, text: String?) {
+    fun displayTokensWithPositions(analyzer: Analyzer, text: String) {
         val stream = analyzer.tokenStream(
             "contents",
             StringReader(text)
@@ -101,7 +88,7 @@ internal object AnalyzerUtils {
         while (stream.incrementToken()) {
             val increment = posIncr.positionIncrement
             if (increment > 0) {
-                position = position + increment
+                position += increment
                 println()
                 print("$position: ")
             }
@@ -110,10 +97,9 @@ internal object AnalyzerUtils {
         println()
     }
 
-    @Throws(IOException::class)
     fun displayTokensWithFullDetails(
         analyzer: Analyzer,
-        text: String?
+        text: String
     ) {
         val stream = analyzer.tokenStream(
             "contents",  // #A
@@ -128,7 +114,7 @@ internal object AnalyzerUtils {
         while (stream.incrementToken()) {                                  // #C
             val increment = posIncr.positionIncrement // #D
             if (increment > 0) {                                            // #D
-                position = position + increment // #D
+                position += increment // #D
                 println() // #D
                 print("$position: ") // #D
             }
@@ -150,10 +136,8 @@ internal object AnalyzerUtils {
     #D Compute position and print
     #E Print all token details
    */
-    @Throws(Exception::class)
     fun assertAnalyzesTo(
-        analyzer: Analyzer, input: String?,
-        output: Array<String?>
+        analyzer: Analyzer, input: String, output: Array<String?>
     ) {
         val stream = analyzer.tokenStream("field", StringReader(input))
         val termAttr = stream.addAttribute(TermAttribute::class.java)
@@ -165,8 +149,7 @@ internal object AnalyzerUtils {
         stream.close()
     }
 
-    @Throws(IOException::class)
-    fun displayPositionIncrements(analyzer: Analyzer, text: String?) {
+    fun displayPositionIncrements(analyzer: Analyzer, text: String) {
         val stream = analyzer.tokenStream("contents", StringReader(text))
         val posIncr = stream.addAttribute(
             PositionIncrementAttribute::class.java
@@ -175,4 +158,18 @@ internal object AnalyzerUtils {
             println("posIncr=" + posIncr.positionIncrement)
         }
     }
+}
+fun main() {
+    println("SimpleAnalyzer")
+    AnalyzerUtils.displayTokensWithFullDetails(
+        SimpleAnalyzer(LUCENE_VERSION),
+        "The quick brown fox...."
+    )
+
+    println("\n----")
+    println("StandardAnalyzer")
+    AnalyzerUtils.displayTokensWithFullDetails(
+        StandardAnalyzer(Version.LUCENE_30),
+        "I'll email you at xyz@example.com"
+    )
 }
