@@ -5,6 +5,8 @@ libs/
 out/
 indexes/
 data/*.csv
+# output from the highliter sample.
+data/FastVectorHighlighterSample.html
 *.iml
 *.sw*
 err

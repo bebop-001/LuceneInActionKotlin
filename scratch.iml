@@ -43,5 +43,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="junit:junit:3.8.2" level="project" />
+    <orderEntry type="library" name="org.apache.lucene:lucene-highlighter:3.6.2" level="project" />
   </component>
 </module>

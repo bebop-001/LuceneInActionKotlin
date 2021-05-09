@@ -4,12 +4,16 @@
     <option name="SCOPE_TYPE" value="3" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Lint">
+    <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Cleanup.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Common.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scratch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerDemo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_08/FastVectorHighlighter/FastVectorHighlighterSample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_08/FastVectorHighlighter/FastVectorHighlighterSample.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FastVectorHighlighter/FastVectorHighlighterSample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FastVectorHighlighter/FastVectorHighlighterSample.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/Main.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +28,7 @@
       <list>
         <option value="Class" />
         <option value="Kotlin Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -59,7 +64,7 @@
     <property name="project.structure.side.proportion" value="0.29565218" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Kotlin" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -70,20 +75,7 @@
       <recent name="hello_lucene" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.csv_search">
-    <configuration type="JetRunConfigurationType" temporary="true">
-      <module name="scratch" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="Application.ch_04_utils">
     <configuration name="VerboseIndexing" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Chapter_02.lia.indexing.VerboseIndexing" />
       <module name="scratch" />
@@ -97,71 +89,152 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ch1_Indexer" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="Chapter_01.Indexer" />
+    <configuration name="AnalyzerDemo" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_04.AnalyzerDemo" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FastVectorHighlighterSample" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_08.FastVectorHighlighter.FastVectorHighlighterSample" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FastVectorHighlighterSampleKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_08.FastVectorHighlighter.FastVectorHighlighterSampleKt" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ch1_Indexer" type="JetRunConfigurationType">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_01.Indexer" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ch3_Explainer" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="Chapter_03.Explainer" />
       <module name="scratch" />
+      <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" value="$PROJECT_DIR$/indexes/Chapter_01/indexerOut/ public" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_03.Explainer" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ch_04_utils" type="JetRunConfigurationType" temporary="true">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_04.AnalyzerUtilsKt" />
+      <option name="WORKING_DIRECTORY" value="" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ch_1_indexer" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="Chapter_01.IndexerKt" />
       <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_01.IndexerKt" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ch_1_search" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="Chapter_01.SearcherKt" />
       <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_01.SearcherKt" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="ch_2_indexing" type="JetRunConfigurationType">
-      <option name="MAIN_CLASS_NAME" value="Chapter_02.lia.indexing.VerboseIndexing" />
       <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Chapter_02.lia.indexing.VerboseIndexing" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="csv_indexer" type="JetRunConfigurationType">
+      <module name="scratch" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" value="--standard" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
       <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.CsvIndexerKt" />
-      <module name="scratch" />
-      <option name="PROGRAM_PARAMETERS" value="--standard" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="csv_search" type="JetRunConfigurationType" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="text_file_csv.query_parser.MainKt" />
-      <module name="scratch" />
-      <option name="PROGRAM_PARAMETERS" value="--standard" />
+      <option name="WORKING_DIRECTORY" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.VerboseIndexing" />
-      <item itemvalue="Kotlin.ch1_Indexer" />
-      <item itemvalue="Kotlin.ch3_Explainer" />
-      <item itemvalue="Kotlin.ch_1_search" />
-      <item itemvalue="Kotlin.ch_2_indexing" />
-      <item itemvalue="Kotlin.csv_indexer" />
-      <item itemvalue="Kotlin.csv_search" />
-      <item itemvalue="Kotlin.ch_1_indexer" />
+      <item itemvalue="Application.ch1_Indexer" />
+      <item itemvalue="Application.ch3_Explainer" />
+      <item itemvalue="Application.ch_1_indexer" />
+      <item itemvalue="Application.ch_1_search" />
+      <item itemvalue="Application.ch_2_indexing" />
+      <item itemvalue="Application.csv_indexer" />
+      <item itemvalue="Application.AnalyzerDemo" />
+      <item itemvalue="Application.FastVectorHighlighterSample" />
+      <item itemvalue="Application.FastVectorHighlighterSampleKt" />
+      <item itemvalue="Application.ch_04_utils" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.csv_search" />
+        <item itemvalue="Application.ch_04_utils" />
         <item itemvalue="Application.VerboseIndexing" />
       </list>
     </recent_temporary>
@@ -175,7 +248,84 @@
       <option name="presentableId" value="Default" />
       <updated>1620004920199</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="changed variable names to clairify code.">
+      <created>1620158777577</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1620158777577</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Initial converted kotlin.">
+      <created>1620173521612</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1620173521612</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Supplied default html file for FastVectorHighlighterSample.kt.">
+      <created>1620174359723</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1620174359723</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Lint and moved to package Chapter_08.">
+      <created>1620179976180</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1620179976180</updated>
+    </task>
+    <task id="LOCAL-00042" summary="code cleanup.">
+      <created>1620180607756</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1620180607756</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Moved sample docs into a map indexed by int.  &#10;Print the int index as well as snippet.&#10;Next step is to get snippet from map instead of saving to lucene.">
+      <created>1620183759501</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1620183759501</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Changed some variable names to make code more readable.&#10;added output to &quot;highlighted&quot; file.">
+      <created>1620228245859</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1620228245859</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Cleanup Kotlinized code cleanup">
+      <created>1620320941388</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1620320941388</updated>
+    </task>
+    <task id="LOCAL-00046" summary="added numbers to test cases so I could see how they were handled.">
+      <created>1620321435188</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1620321435188</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Added main back in + Lint.">
+      <created>1620523807954</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1620523807954</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Cleanup.">
+      <created>1620525454294</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1620525454294</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -191,18 +341,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Initial java version." />
-    <MESSAGE value="Lint." />
-    <MESSAGE value="Kotlinize" />
-    <MESSAGE value="rename variable." />
-    <MESSAGE value="Kotlin-ize" />
-    <MESSAGE value="changed lucene version to target 3.6 specificly." />
-    <MESSAGE value="Changed output indexes structure." />
-    <MESSAGE value="Force remove of index on run for testing." />
-    <MESSAGE value="Replace if... with when." />
-    <MESSAGE value="initial" />
-    <MESSAGE value="Split text file at ' '.  lines now max 80 chars." />
-    <MESSAGE value="bad import." />
     <MESSAGE value="Hardcoded path to index.  Made term selection interactive." />
     <MESSAGE value="Checkpoint.  Code not working." />
     <MESSAGE value="Works but still can't get filename/index." />
@@ -216,19 +354,23 @@
     <MESSAGE value="Tweaked USAGE statement." />
     <MESSAGE value="Lint: removed un-needed suppress." />
     <MESSAGE value="Lint" />
-    <option name="LAST_COMMIT_MESSAGE" value="Lint" />
+    <MESSAGE value="changed variable names to clairify code." />
+    <MESSAGE value="Initial converted kotlin." />
+    <MESSAGE value="Supplied default html file for FastVectorHighlighterSample.kt." />
+    <MESSAGE value="Lint and moved to package Chapter_08." />
+    <MESSAGE value="code cleanup." />
+    <MESSAGE value="Moved sample docs into a map indexed by int.  &#10;Print the int index as well as snippet.&#10;Next step is to get snippet from map instead of saving to lucene." />
+    <MESSAGE value="Changed some variable names to make code more readable.&#10;added output to &quot;highlighted&quot; file." />
+    <MESSAGE value="Cleanup Kotlinized code" />
+    <MESSAGE value="Cleanup Kotlinized code cleanup" />
+    <MESSAGE value="added numbers to test cases so I could see how they were handled." />
+    <MESSAGE value="Added main back in + Lint." />
+    <MESSAGE value="Cleanup." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cleanup." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
-          <line>130</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="24" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <condition expression="text.length == 1" language="kotlin" />
           <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt</url>
@@ -249,6 +391,31 @@
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_01/Indexer.kt</url>
           <line>117</line>
           <option name="timeStamp" value="117" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt</url>
+          <line>58</line>
+          <option name="timeStamp" value="120" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt</url>
+          <line>54</line>
+          <option name="timeStamp" value="121" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_08/FastVectorHighlighter/FastVectorHighlighterSample.kt</url>
+          <line>148</line>
+          <option name="timeStamp" value="130" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt</url>
+          <line>109</line>
+          <option name="timeStamp" value="135" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="kotlin-line">
+          <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt</url>
+          <line>122</line>
+          <option name="timeStamp" value="136" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
