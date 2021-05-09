@@ -80,7 +80,7 @@ object AnalyzerUtils {
             "contents",
             StringReader(text)
         )
-        val term = stream.addAttribute(TermAttribute::class.java)
+        val term = stream.addAttribute(CharTermAttribute::class.java)
         val posIncr = stream.addAttribute(
             PositionIncrementAttribute::class.java
         )
@@ -92,7 +92,7 @@ object AnalyzerUtils {
                 println()
                 print("$position: ")
             }
-            print("[" + term.term() + "] ")
+            print("[$term] ")
         }
         println()
     }
@@ -105,8 +105,9 @@ object AnalyzerUtils {
             "contents",  // #A
             StringReader(text)
         )
-        val term = stream.addAttribute(TermAttribute::class.java) // #B
-        val posIncr =  // #B 
+
+        val term = stream.addAttribute(CharTermAttribute::class.java) // #B
+        val posIncr =  // #B
             stream.addAttribute(PositionIncrementAttribute::class.java) // #B
         val offset = stream.addAttribute(OffsetAttribute::class.java) // #B
         val type = stream.addAttribute(TypeAttribute::class.java) // #B
@@ -119,11 +120,10 @@ object AnalyzerUtils {
                 print("$position: ") // #D
             }
             print(
-                "[" +  // #E
-                    term.term() + ":" +  // #E
-                    offset.startOffset() + "->" +  // #E
-                    offset.endOffset() + ":" +  // #E
-                    type.type() + "] "
+                "[$term:" +
+                "${offset.startOffset()}:" +
+                "${offset.endOffset()}:" +
+                "${type.type()}]"
             ) // #E
         }
         println()
