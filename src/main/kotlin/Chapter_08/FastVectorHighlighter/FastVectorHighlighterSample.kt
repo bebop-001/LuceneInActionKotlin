@@ -15,33 +15,23 @@
 
 package Chapter_08.FastVectorHighlighter
 
-import java.io.File
-import java.io.FileWriter
-import java.io.IOException
-import java.lang.Exception
-
-import kotlin.Throws
-
 import org.apache.lucene.analysis.Analyzer
 import org.apache.lucene.analysis.standard.StandardAnalyzer
 import org.apache.lucene.document.Document
 import org.apache.lucene.document.Field
 import org.apache.lucene.document.Field.TermVector
 import org.apache.lucene.document.NumericField
-import org.apache.lucene.index.IndexReader
-import org.apache.lucene.index.IndexWriter
-import org.apache.lucene.index.IndexWriterConfig
+import org.apache.lucene.index.*
 import org.apache.lucene.queryParser.QueryParser
+import org.apache.lucene.search.BooleanQuery
 import org.apache.lucene.search.IndexSearcher
-import org.apache.lucene.search.vectorhighlight.BaseFragmentsBuilder
-import org.apache.lucene.search.vectorhighlight.FastVectorHighlighter
-import org.apache.lucene.search.vectorhighlight.FragListBuilder
-import org.apache.lucene.search.vectorhighlight.FragmentsBuilder
-import org.apache.lucene.search.vectorhighlight.ScoreOrderFragmentsBuilder
-import org.apache.lucene.search.vectorhighlight.SimpleFragListBuilder
+import org.apache.lucene.search.vectorhighlight.*
 import org.apache.lucene.store.Directory
 import org.apache.lucene.store.RAMDirectory
 import org.apache.lucene.util.Version
+import java.io.File
+import java.io.FileWriter
+
 
 // From chapter 8
 private val LUCENE_VERSION = Version.LUCENE_36
@@ -75,17 +65,17 @@ private var ANALYZER: Analyzer = StandardAnalyzer(LUCENE_VERSION)
 
 private val sampleOutputFile = File(System.getenv("PWD"), "data/FastVectorHighlighterSample.html")
 
-@Throws(IOException::class)
-fun makeIndex() {
+fun makeIndex(storeField:Boolean) {
     sampleOutputFile.delete()
     val indexWriter: IndexWriter = IndexWriter(
         dir, IndexWriterConfig(LUCENE_VERSION, ANALYZER)
     )
+    val fieldStore = if (storeField) Field.Store.YES else Field.Store.NO
     inputDocsMapped.keys.forEach{key ->
         val doc = Document()
         doc.add(
             Field(
-                textfieldName, inputDocsMapped[key], Field.Store.YES, Field.Index.ANALYZED,
+                textfieldName, inputDocsMapped[key], fieldStore, Field.Index.ANALYZED,
                 TermVector.WITH_POSITIONS_OFFSETS
             )
         )
@@ -113,8 +103,8 @@ fun searchIndex() {
     val indexReader = IndexReader.open(dir)
     val searcher = IndexSearcher(indexReader)
     val docs = searcher.search(query, 10)
+    println("for query:&lt;$query&gt;, ${docs.scoreDocs.size} matches found.")
     if (docs.scoreDocs.size == 0) {
-        println("No matches found.")
         return
     }
     val highlightedHtmlWriter = FileWriter(sampleOutputFile)
@@ -125,13 +115,49 @@ fun searchIndex() {
     for (scoreDoc in docs.scoreDocs) {
         val docId:Int = scoreDoc.doc
         val document: Document = searcher.doc(docId)
-        val snippet = highlighter.getBestFragment( // #E
+        val idxField = document.get("idx")
+        val textField = document.getFieldable(textfieldName)
+
+        val termFreqVector: TermFreqVector = indexReader.getTermFreqVector(docId, textfieldName)
+        val termPositionVector = termFreqVector as TermPositionVector
+
+
+
+        val clauses = (query as BooleanQuery).getClauses();
+        
+        val terms = termFreqVector.terms
+        terms.forEachIndexed { idx, term ->
+            // indexOf returns an index in the term numbers array 
+            // returned from getTerms at which the term with the 
+            // specified term appears. If this term does not 
+            // appear in the array, return -1.
+            val termIndex:Int = termFreqVector.indexOf(term)
+            // getTermPositions returns an array of positions in 
+            // which the term is found. Terms are identified by 
+            // the index at which its number appears in the term 
+            // String array obtained from the indexOf method. May
+            // return null if positions have not been stored.
+            val termPositions:IntArray = termPositionVector.getTermPositions(termIndex)
+
+            // termPositionVector.getOffsets returns an array of
+            // TermVectorOffsetInfo in which the term is found.
+            // May return null if offsets have not been stored.
+            // termIndex is index into the array to get the offsets from
+            val termVectorInfo = termPositionVector.getOffsets(termIndex)
+
+
+            println("term[$idx] -> $term:idx, $termIndex, termPositions=$termPositions, termVectorInfo = $termVectorInfo")
+        }
+
+
+        val snippet:String? = highlighter.getBestFragment( // #E
             fieldQuery, searcher.indexReader,  // #E
             docId, textfieldName, 100
         )
-        if (snippet != null) {
-            val idxField = document.get("idx")
-            val textField = document.getFieldable(textfieldName)
+        if (snippet == null)
+            println ("Snippet is null.  Is Field.Store.YES on?")
+        else {
+            println("snippet is null.  Is ")
             val snippetHtml = snippet
                 .replace("<", "&lt;")
                 .replace(">", "&gt;")
@@ -151,7 +177,7 @@ fun searchIndex() {
 }
 
 fun main(args: Array<String>) {
-    makeIndex()
+    makeIndex(false)
     searchIndex()
     println("output saved to html file:$sampleOutputFile")
 }
