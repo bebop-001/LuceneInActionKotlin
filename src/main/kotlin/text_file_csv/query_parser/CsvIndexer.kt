@@ -123,8 +123,9 @@ class CsvIndexer(at: AnalyzerType, val indexDir: File) {
                         Field(
                             "text", text,
                             Field.Store.NO,
-                            Field.Index.ANALYZED
-                        )
+                            Field.Index.ANALYZED,
+                            Field.TermVector.WITH_POSITIONS_OFFSETS,
+                            )
                     )
                 // println("index:$lineCount, fName:$fName, text:${text.length}")
                 // println("$fName:${text.length}")
