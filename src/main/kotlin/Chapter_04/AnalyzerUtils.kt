@@ -106,6 +106,9 @@ object AnalyzerUtils {
             StringReader(text)
         )
 
+        val sb = StringBuffer()
+            .append("text=\"$text\"\n")
+            .append("analyzer=${analyzer.javaClass.simpleName}\n")
         val term = stream.addAttribute(CharTermAttribute::class.java) // #B
         val posIncr =  // #B
             stream.addAttribute(PositionIncrementAttribute::class.java) // #B
@@ -116,15 +119,11 @@ object AnalyzerUtils {
             val increment = posIncr.positionIncrement // #D
             if (increment > 0) {                                            // #D
                 position += increment // #D
-                println() // #D
-                print("$position: ") // #D
+                sb.append("position=$position\n") // #D
             }
-            print(
-                "[$term:" +
-                "${offset.startOffset()}:" +
-                "${offset.endOffset()}:" +
-                "${type.type()}]"
-            ) // #E
+            sb.append("\tterm\"$term\", type=\"${type.type()}\n")
+                .append("\toffset: ${offset.startOffset()} to ${offset.endOffset()}\n")
+            println(sb.toString())
         }
         println()
     }
