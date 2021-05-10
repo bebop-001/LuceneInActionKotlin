@@ -53,6 +53,7 @@ class CsvSearcher(at: AnalyzerType, val indexDir: File) {
             topDocs.scoreDocs.forEachIndexed { idx, scoreDoc ->
                 val docId :Int = scoreDoc.doc
                 val document: Document = indexSearcher.doc(docId)
+                //val tv: Terms = indexReader.getTermVector(docId, "text")
                 val lineNumber = document.get("line_number").toInt()
                 val fName = document.get("file_name")
                 matches.add(Pair(fName, lineNumber))
