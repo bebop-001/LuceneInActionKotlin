@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5b4080a7-d338-4364-ae79-58cc8de85e1a" name="Default Changelist" comment="Cleanup.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scratch.iml" beforeDir="false" afterPath="$PROJECT_DIR$/scratch.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_08/FastVectorHighlighter/FastVectorHighlighterSample.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_08/FastVectorHighlighter/FastVectorHighlighterSample.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FastVectorHighlighter/FastVectorHighlighterSample.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/FastVectorHighlighter/FastVectorHighlighterSample.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvIndexer.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/text_file_csv/query_parser/CsvSearcher.kt" afterDir="false" />
     </list>
@@ -58,7 +53,7 @@
     <property name="Repository.Attach.Sources" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../baeldung/lucene" />
+    <property name="last_opened_file_path" value="/tmp/LuceneInActionKotlin" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.29565218" />
@@ -409,13 +404,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt</url>
-          <line>109</line>
+          <line>112</line>
           <option name="timeStamp" value="135" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="kotlin-line">
           <url>file://$PROJECT_DIR$/src/main/kotlin/Chapter_04/AnalyzerUtils.kt</url>
-          <line>122</line>
-          <option name="timeStamp" value="136" />
+          <line>111</line>
+          <option name="timeStamp" value="137" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
